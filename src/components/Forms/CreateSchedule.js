@@ -75,7 +75,9 @@ function CreateSchedule({
                 placeholder="Select batch"
                 className="w-full h-[42px] outline-none rounded-md bg-[#F7F7FC] font-mulish text-xl font-semibold"
                 styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                menuPortalTarget={typeof document !== null && document.body}
+                menuPortalTarget={
+                  typeof document !== undefined && document.body
+                }
                 menuPosition="absolute"
               />
             )}

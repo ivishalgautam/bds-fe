@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.login-gradient {
+  background: linear-gradient(90.22deg, #f7f7fc 50%, #5541d7 50%);
+}
+
+.mySwiper {
+  width: 100%;
+}
+.mySwiper .swiper-slide:nth-child(odd) {
+  margin-top: 80px;
+}
+
+.member-bg {
+  background: linear-gradient(90deg, #e8fcff 0%, #f4f3ff 96.15%);
+}
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+/* custom switch */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 2.5em;
+  height: 1.5em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #5642d73c;
+  border-radius: 50px;
+  transition: all 0.2s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.2em;
+  width: 1.2em;
+  left: 0.15em;
+  bottom: 0.15em;
+  background-color: white;
+  border-radius: 50px;
+  transition: all 0.2s;
+}
+
+.switch input:checked + .slider {
+  background: #5542d7;
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #5542d7;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.05em);
+  top: 0.15em;
+  width: 1.2em;
+  height: 1.2em;
+  bottom: 0;
+}
+.select-input {
+  @apply p-4 rounded-md bg-primary text-white;
+}
+
+#pdf-download {
+  display: none;
+}

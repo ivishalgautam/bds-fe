@@ -105,12 +105,6 @@ export default function LoginForm() {
               {loading ? <Spinner color="white" /> : "Submit"}
             </button>
           </form>
-          <p>
-            Don't have an Account ?{" "}
-            <Link href="/signup" className="text-primary">
-              Singup
-            </Link>
-          </p>
         </div>
         <div className="bg-[#f7f7fc]">
           <Image src={LoginImage} alt="" />

@@ -85,7 +85,7 @@ export default function MileStones({ user }) {
     }
   };
   return (
-    <div className="relative flex items-center gap-4 w-full">
+    <div className="relative flex items-center gap-4 w-full overflow-hidden">
       <div className="border-2 border-dashed border-primary absolute mx-auto w-[95%] ml-6" />
       <button onClick={() => handleSlide("prev")}>
         <BsChevronCompactLeft className="text-4xl" />

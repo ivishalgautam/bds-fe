@@ -87,7 +87,10 @@ export default function Chat() {
   };
 
   useEffect(() => {
-    socketRef.current = new ReconnectingWebSocket("ws://localhost:3001");
+    // socketRef.current = new ReconnectingWebSocket("ws://localhost:3001");
+    socketRef.current = new ReconnectingWebSocket(
+      process.env.NEXT_PUBLIC_SOCKET_URL
+    );
 
     socketRef.current.addEventListener("open", (event) => {
       console.log("WebSocket connected!", event);

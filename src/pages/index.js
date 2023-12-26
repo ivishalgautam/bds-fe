@@ -111,7 +111,7 @@ export default function Home() {
     <div className="space-y-6">
       {user?.role === "student" && (
         <div className="grid grid-cols-9 gap-4">
-          <div className="bg-[#e6ffff] col-span-3 rounded-xl shadow-lg">
+          <div className="bg-primary text-white col-span-3 rounded-xl shadow-lg">
             <ProfileCard user={user} />
           </div>
           <div className="col-span-6 bg-white rounded-xl py-4">

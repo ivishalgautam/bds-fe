@@ -54,7 +54,7 @@ export default function Chat() {
     enabled: !!group_chat_id,
   });
 
-  // console.log({ groupMembers });
+  console.log({ groupMembers });
 
   const { mutate } = useMutation(postMessage, {
     onSuccess: () => {

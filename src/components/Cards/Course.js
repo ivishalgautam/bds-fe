@@ -20,7 +20,6 @@ export default function Course({
   id,
   user,
 }) {
-  console.log(thumbnail);
   const [show, setShow] = useState(false);
   const router = useRouter();
 

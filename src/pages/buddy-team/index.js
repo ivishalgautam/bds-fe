@@ -107,7 +107,6 @@ function BuddyTeam() {
   if (isError) {
     return <h1>Error</h1>;
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
       {user?.role === "student" && (
@@ -174,22 +173,24 @@ function BuddyTeam() {
           {groups?.length === 0 ? (
             <p className="text-center">You have no group</p>
           ) : (
-            groups?.map((item, index) => (
-              <Link key={index} href={`/buddy-team/${item.id}`}>
-                <div
-                  className={`bg-white p-8 rounded-xl space-y-2 relative border-2 `}
-                >
-                  <div className="flex">
-                    <img
-                      src={item.group_image}
-                      alt=""
-                      className="w-24 h-24 mx-auto rounded-full shadow-md"
-                    />
+            groups
+              ?.filter((g) => g.is_community === false)
+              .map((item, index) => (
+                <Link key={index} href={`/buddy-team/${item.id}`}>
+                  <div
+                    className={`bg-white p-8 rounded-xl space-y-2 relative border-2 `}
+                  >
+                    <div className="flex">
+                      <img
+                        src={item.group_image}
+                        alt=""
+                        className="w-24 h-24 mx-auto rounded-full shadow-md"
+                      />
+                    </div>
+                    <h3 className="font-bold text-center">{item.group_name}</h3>
                   </div>
-                  <h3 className="font-bold text-center">{item.group_name}</h3>
-                </div>
-              </Link>
-            ))
+                </Link>
+              ))
           )}
         </div>
       </div>

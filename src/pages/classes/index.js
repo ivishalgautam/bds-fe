@@ -40,17 +40,26 @@ export default function Classes() {
   return (
     <div className="font-mulish">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data?.map(({ course_name, course_thumbnail, course_syllabus, id }) => {
-          return (
-            <ClassCard
-              key={id}
-              id={id}
-              course_name={course_name}
-              course_thumbnail={course_thumbnail}
-              progress={calculateProgress(course_syllabus)}
-            />
-          );
-        })}
+        {data?.map(
+          ({
+            course_name,
+            course_thumbnail,
+            course_syllabus,
+            id,
+            group_id,
+          }) => {
+            return (
+              <ClassCard
+                key={id}
+                id={id}
+                course_name={course_name}
+                course_thumbnail={course_thumbnail}
+                progress={calculateProgress(course_syllabus)}
+                group_id={group_id}
+              />
+            );
+          }
+        )}
       </div>
     </div>
   );

@@ -1,15 +1,16 @@
 import CourseAccordion from "@/components/CourseAccordion";
 import DocViewerApp from "@/components/DocViewerApp";
 import Modal from "@/components/Modal";
-import PdfViewerComponent from "@/components/PPTViewer";
 import Spinner from "@/components/Spinner";
 import { endpoints } from "@/utils/endpoints";
 import getFileName from "@/utils/filename";
 import http from "@/utils/http";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
 const fetchBatches = () => {
   return http().get(endpoints.batch.getAll);
@@ -145,9 +146,20 @@ export default function Classes() {
         {batches?.map((batch) => {
           return (
             <div className="p-4 bg-white rounded-md space-y-6" key={batch.id}>
-              <h1 className="text-2xl font-bold capitalize">
-                {batch.course_name}
-              </h1>
+              <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-bold capitalize">
+                  {batch.course_name}
+                </h1>
+
+                {batch?.group_id && batch.group_id !== null && (
+                  <Link href={`/buddy-team/${batch.group_id}`}>
+                    <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-full">
+                      <IoChatboxEllipsesOutline size={30} />
+                      <span>Chat</span>
+                    </div>
+                  </Link>
+                )}
+              </div>
               <CourseAccordion
                 data={batch.course_syllabus}
                 batchId={batch.id}

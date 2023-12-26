@@ -4,7 +4,6 @@ import useLocalStorage from "@/utils/useLocalStorage";
 
 function DocViewerApp({ docs }) {
   const [accessToken] = useLocalStorage("token");
-  console.log({ docs });
   return (
     <DocViewer
       documents={docs}

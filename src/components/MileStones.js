@@ -24,7 +24,6 @@ export default function MileStones({ user }) {
     queryKey: ["levels"],
     queryFn: fetchLevels,
   });
-  console.log({ rewards, data });
 
   const slides = [
     {
@@ -113,9 +112,11 @@ export default function MileStones({ user }) {
                   Level {slide?.level}
                 </h3>
                 <p className="text-center text-white">
-                  `You need
-                  {slide?.min_reward_point - rewards?.[0]?.reward_points} more
-                  points to achieve this level`
+                  {rewards?.[0]?.reward_points >= slide?.min_reward_point
+                    ? "Level achieved"
+                    : `You need
+                  ${slide?.min_reward_point - rewards?.[0]?.reward_points} more
+                  points to achieve this level`}
                 </p>
               </div>
             </div>

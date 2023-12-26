@@ -1,12 +1,14 @@
 import React from "react";
 import Title from "../Title";
 import Link from "next/link";
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
 export default function ClassCard({
   id,
   course_name,
   course_thumbnail,
   progress: { progress, totalDays },
+  group_id,
 }) {
   return (
     <Link href={`/classes/${id}`}>
@@ -18,6 +20,7 @@ export default function ClassCard({
             className="rounded-lg"
           />
         </div>
+
         <div className="p-4">
           <h2 className="text-sm font-bold m-0">Course name: {course_name}</h2>
           <p className="text-xs font-bold m-0 text-gray-400">
@@ -30,6 +33,23 @@ export default function ClassCard({
             ></div>
           </div>
           <span className="text-xs font-bold">{progress}%</span>
+        </div>
+
+        <div className="flex justify-between items-center p-4 pt-0">
+          <Link
+            href={`/classes/${id}`}
+            className="bg-primary text-white py-1.5 px-4 rounded-full"
+          >
+            View
+          </Link>
+          {group_id && group_id !== null && (
+            <Link href={`/buddy-team/${group_id}`} className="inline-block ">
+              <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-full">
+                <IoChatboxEllipsesOutline size={25} />
+                <span>Chat</span>
+              </div>
+            </Link>
+          )}
         </div>
       </div>
     </Link>

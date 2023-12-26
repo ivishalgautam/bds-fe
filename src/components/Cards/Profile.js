@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function ProfileCard({ user }) {
-  console.log(user);
   return (
     <div className="p-4">
       <div>
@@ -13,7 +12,7 @@ export default function ProfileCard({ user }) {
         <div className="text-center text-xl font-bold capitalize mt-2">
           {user?.first_name} {user?.last_name}
         </div>
-        <div className="text-center text-gray-500">@{user?.username}</div>
+        <div className="text-center text-gray-300">@{user?.username}</div>
       </div>
     </div>
   );

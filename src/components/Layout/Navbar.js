@@ -70,6 +70,8 @@ function Navbar() {
     user?.role === "student"
   );
 
+  // console.log({ rewards });
+
   const { mutate } = useMutation(updateNotification, {
     onSuccess: (data) => {
       console.log("success");
@@ -94,11 +96,11 @@ function Navbar() {
             </div>
             {rewardLoading ? (
               <span className="text-yellow-500 text-xs font-extrabold">
-                {rewardLoading ? "loading..." : rewards?.[0].reward_points}
+                {rewardLoading ? "loading..." : rewards?.[0].reward_points ?? 0}
               </span>
             ) : (
               <span className="text-yellow-500 text-2xl font-extrabold">
-                {rewards?.[0]?.reward_points}
+                {rewards?.[0]?.reward_points ?? 0}
               </span>
             )}
             <span className="text-black leading-3 text-xs font-semibold mr-2">

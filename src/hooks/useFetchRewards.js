@@ -15,6 +15,11 @@ export function useFetchRewards(shouldFetch) {
   );
 
   return shouldFetch
-    ? { data, isLoading, isError, error }
+    ? {
+        data: data?.length === 0 ? [{ reward_points: 0 }] : data,
+        isLoading,
+        isError,
+        error,
+      }
     : { data: null, isLoading: false };
 }

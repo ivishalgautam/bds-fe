@@ -24,6 +24,7 @@ export default function MileStones({ user }) {
     queryKey: ["levels"],
     queryFn: fetchLevels,
   });
+  console.log({ rewards, data });
 
   const slides = [
     {
@@ -99,9 +100,9 @@ export default function MileStones({ user }) {
         {data?.map((slide, key) => (
           <SwiperSlide key={key}>
             <div
-              style={{ backgroundColor: slide.color }}
+              style={{ backgroundColor: slide?.color }}
               className={`w-full rounded-3xl ${
-                rewards?.[0].reward_points >= slide.min_reward_point
+                rewards?.[0].reward_points >= slide?.min_reward_point
                   ? "grayscale-0"
                   : "grayscale"
               }`}
@@ -109,10 +110,11 @@ export default function MileStones({ user }) {
               <Image src={MileStone} width={"100%"} alt="img" />
               <div className="p-4">
                 <h3 className="text-white text-3xl font-extrabold text-center">
-                  Level {slide.level}
+                  Level {slide?.level}
                 </h3>
                 <p className="text-center text-white">
-                  You need {slide.min_reward_point - rewards?.[0].reward_points}{" "}
+                  You need{" "}
+                  {slide?.min_reward_point - rewards?.[0]?.reward_points}
                   more points to achieve this level
                 </p>
               </div>

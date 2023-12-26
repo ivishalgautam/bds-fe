@@ -113,9 +113,9 @@ export default function MileStones({ user }) {
                   Level {slide?.level}
                 </h3>
                 <p className="text-center text-white">
-                  You need{" "}
-                  {slide?.min_reward_point - rewards?.[0]?.reward_points}
-                  more points to achieve this level
+                  `You need
+                  {slide?.min_reward_point - rewards?.[0]?.reward_points} more
+                  points to achieve this level`
                 </p>
               </div>
             </div>

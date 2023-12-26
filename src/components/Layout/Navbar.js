@@ -98,7 +98,7 @@ function Navbar() {
               </span>
             ) : (
               <span className="text-yellow-500 text-2xl font-extrabold">
-                {rewards?.[0].reward_points}
+                {rewards?.[0]?.reward_points}
               </span>
             )}
             <span className="text-black leading-3 text-xs font-semibold mr-2">

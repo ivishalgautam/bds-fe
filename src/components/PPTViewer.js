@@ -1,5 +1,5 @@
 export default function PdfViewerComponent({ embedUrl }) {
-  let url = `https://docs.google.com/gview?url=${"https://magnitecorp.com/ppt/slides.pptx"}&embedded=true`;
+  let url = `https://docs.google.com/gview?url=${embedUrl}&embedded=true`;
 
   return (
     <div>

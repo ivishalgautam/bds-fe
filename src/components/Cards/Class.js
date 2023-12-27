@@ -2,6 +2,7 @@ import React from "react";
 import Title from "../Title";
 import Link from "next/link";
 import { IoChatboxEllipsesOutline, IoEyeOutline } from "react-icons/io5";
+import { useRouter } from "next/router";
 
 export default function ClassCard({
   id,
@@ -10,6 +11,10 @@ export default function ClassCard({
   progress: { progress, totalDays },
   group_id,
 }) {
+  const router = useRouter();
+  const handleNavigate = (url) => {
+    router.push(url);
+  };
   return (
     <Link href={`/classes/${id}`}>
       <div className="rounded-lg bg-white shadow-lg">
@@ -36,19 +41,19 @@ export default function ClassCard({
         </div>
 
         <div className="p-4 pt-0 grid grid-cols-2 gap-4">
-          <Link href={`/classes/${id}`}>
+          <button onClick={() => handleNavigate(`/classes/${id}`)}>
             <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-md">
               <IoEyeOutline size={25} />
               <span>View</span>
             </div>
-          </Link>
+          </button>
           {group_id && group_id !== null && (
-            <Link href={`/buddy-team/${group_id}`}>
+            <button onClick={() => handleNavigate(`/buddy-team/${group_id}`)}>
               <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-md">
                 <IoChatboxEllipsesOutline size={25} />
                 <span>Chat</span>
               </div>
-            </Link>
+            </button>
           )}
         </div>
       </div>

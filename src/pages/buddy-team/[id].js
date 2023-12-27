@@ -54,7 +54,7 @@ export default function Chat() {
     enabled: !!group_chat_id,
   });
 
-  console.log({ groupMembers });
+  // console.log({ groupMembers });
 
   const { mutate } = useMutation(postMessage, {
     onSuccess: () => {
@@ -147,7 +147,7 @@ export default function Chat() {
               )}
             </div>
           </div>
-          <div className="h-96 space-y-4 p-4 overflow-y-scroll">
+          <div className="h-96 space-y-2 p-4 overflow-y-scroll ">
             {groupMembersLoading ? (
               <div className="flex justify-center">
                 <Spinner />
@@ -156,19 +156,21 @@ export default function Chat() {
               groupMembers
                 ?.filter((i) => i.fullname !== " ")
                 .map((member, i) => (
-                  <div
-                    key={i}
-                    // onClick={() => onSelectUser(member)}
-                    className={`gap-6 member-bg px-4 py-2 rounded-full cursor-pointer flex items-center justify-start`} // hide current logged in user from chat/member list.
-                  >
-                    <img
-                      src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${member.image_url}`}
-                      className="w-10 h-10 rounded-full"
-                    />
-                    <div>
-                      <h3 className="text-primary">{member.fullname}</h3>
+                  <>
+                    <div
+                      key={i}
+                      className={`gap-6 px-4 py-2 rounded-md bg-gray-100 cursor-pointer flex items-center justify-start`} // hide current logged in user from chat/member list.
+                    >
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${member.image_url}`}
+                        className="w-10 h-10 rounded-full"
+                      />
+                      <div>
+                        <h3 className="text-primary">{member.fullname}</h3>
+                      </div>
                     </div>
-                  </div>
+                    {i !== groupMembers?.length - 2 && <hr />}
+                  </>
                 ))
             )}
           </div>

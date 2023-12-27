@@ -15,7 +15,6 @@ import moment from "moment";
 import ReconnectingWebSocket from "reconnecting-websocket";
 
 const postMessage = async ({ message, message_from, group_id }) => {
-  //   console.log({ message, message_from, group_id });
   return await http().post(endpoints.chats, {
     message: message,
     message_from: message_from,

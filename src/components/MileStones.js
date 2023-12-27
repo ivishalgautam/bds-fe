@@ -73,7 +73,7 @@ export default function MileStones({ rewards, levels }) {
     }
   };
   return (
-    <div className="relative flex items-center gap-4 w-full overflow-hidden">
+    <div className="relative flex items-center gap-4 w-full">
       <div className="border-2 border-dashed border-primary absolute mx-auto w-[95%] ml-6" />
       <button onClick={() => handleSlide("prev")}>
         <BsChevronCompactLeft className="text-4xl" />
@@ -91,8 +91,11 @@ export default function MileStones({ rewards, levels }) {
               className={`w-full rounded-3xl relative shadow my-2`}
             >
               {rewards?.[0]?.reward_points < slide?.min_reward_point && (
-                <div className="absolute -top-2 -right-2 z-10 bg-white p-3 shadow rounded-2xl">
-                  <FaLock size={20} />
+                <div
+                  style={{ background: "#F04461" }}
+                  className="absolute -top-2 -right-2 z-10 p-3 shadow rounded-full border-2 border-white"
+                >
+                  <FaLock size={20} fill="#fff" />
                 </div>
               )}
               <div
@@ -114,6 +117,9 @@ export default function MileStones({ rewards, levels }) {
                 </h3>
               </div>
               <div className="p-4 text-black bg-white">
+                <h2 className="text-center capitalize font-bold text-2xl">
+                  {slide.name}
+                </h2>
                 <p className="text-center text-xs">
                   {rewards?.[0]?.reward_points >= slide?.min_reward_point
                     ? "Level achieved"

@@ -24,7 +24,7 @@ export default function ProfileCard({ user, progress, minPoint, maxPoint }) {
   });
 
   return (
-    <div className="p-4 relative">
+    <div className="p-4 pb-8 relative">
       <img
         src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${user?.image_url}`}
         alt={user?.first_name}

@@ -12,3 +12,7 @@ export const calculateProgress = (syllabus) => {
 
   return { progress, totalDays };
 };
+
+export const calculateLevelProgress = (userPoints, totalPoints) => {
+  return (userPoints * 100) / totalPoints;
+};

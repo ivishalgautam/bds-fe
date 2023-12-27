@@ -20,6 +20,7 @@ export default function LevelForm({ id, type, handleCreate, handleUpdate }) {
       level: data.level,
       min_reward_point: data.min_reward_point,
       color: data.color,
+      name: data.name,
     };
 
     if (type === "add") {
@@ -40,6 +41,7 @@ export default function LevelForm({ id, type, handleCreate, handleUpdate }) {
       setValue("level", data.level);
       setValue("min_reward_point", data.min_reward_point);
       setValue("color", data.color);
+      setValue("name", data.name);
     }
 
     if ((type === "edit" && id) || (type === "view" && id)) {
@@ -85,7 +87,24 @@ export default function LevelForm({ id, type, handleCreate, handleUpdate }) {
             disabled={type === "view"}
             className="w-full px-4 h-[42px] border outline-none rounded-md bg-[#F7F7FC] font-mulish text-xl font-semibold"
             {...register("min_reward_point", {
-              required: "Reward point is required",
+              required: "Level point is required",
+            })}
+          />
+          {errors.min_reward_point && (
+            <p className="text-red-600">{errors.min_reward_point.message}</p>
+          )}
+        </div>
+
+        {/* name */}
+        <div>
+          {/* <label htmlFor="min_reward_point">Reward Points</label> */}
+          <input
+            type="text"
+            placeholder="Enter level name"
+            disabled={type === "view"}
+            className="w-full px-4 h-[42px] border outline-none rounded-md bg-[#F7F7FC] font-mulish text-xl font-semibold"
+            {...register("name", {
+              required: "Level name is required",
             })}
           />
           {errors.min_reward_point && (

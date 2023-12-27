@@ -12,7 +12,6 @@ export default function Edit() {
   const queryClient = useQueryClient();
 
   const updateLevel = async (id, data) => {
-    console.log({ data });
     return await http().put(`${endpoints.levels.getAll}/${id}`, data);
   };
 
@@ -21,7 +20,8 @@ export default function Edit() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["levels"] });
-        toast.success("level successfully.");
+        toast.success("level successfully updated.");
+        router.push("/levels");
       },
       onError: () => {
         toast.error("Failed to update level.");

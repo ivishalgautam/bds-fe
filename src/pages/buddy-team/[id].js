@@ -212,7 +212,9 @@ export default function Chat() {
                       <div
                         key={index}
                         className={`shadow-md p-[0.7rem] rounded-lg ${
-                          user?.id !== chat?.message_from_id
+                          chat?.role === "teacher"
+                            ? "bg-emerald-500 text-white"
+                            : user?.id !== chat?.message_from_id
                             ? ""
                             : "bg-primary text-white"
                         }`}
@@ -226,7 +228,9 @@ export default function Chat() {
                         <p className="text-[12px]">{chat?.message}</p>
                         <span
                           className={`text-[10px] ${
-                            user?.id !== chat?.message_from_id
+                            chat?.role === "teacher"
+                              ? "text-white"
+                              : user?.id !== chat?.message_from_id
                               ? "text-gray-400"
                               : "text-white"
                           } font-semibold`}

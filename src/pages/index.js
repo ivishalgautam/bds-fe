@@ -17,6 +17,8 @@ import OngoingCourses from "@/components/OngoingCourses";
 import MileStones from "@/components/MileStones";
 import toast from "react-hot-toast";
 import ProfileCard from "@/components/Cards/Profile";
+import { useFetchRewards } from "@/hooks/useFetchRewards";
+import { calculateLevelProgress } from "@/utils/calculateProgress";
 
 const getReport = () => {
   return http().get(endpoints.dashboard.getAll);
@@ -26,9 +28,13 @@ const updateItem = async (itemId, updatedItem) => {
   await http().put(`${endpoints.ticket.getAll}/${itemId}`, updatedItem);
 };
 
+const fetchLevels = async () => {
+  return await http().get(endpoints.levels.getAll);
+};
+
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isCreateModalOpen, setIsCresteModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const { user } = useContext(MainContext);
 
@@ -45,7 +51,7 @@ export default function Home() {
   };
 
   const openCreateModal = () => {
-    setIsCresteModalOpen(true);
+    setIsCreateModalOpen(true);
   };
 
   // Function to close the modal
@@ -54,7 +60,7 @@ export default function Home() {
   };
 
   const closeCreateModal = () => {
-    setIsCresteModalOpen(false);
+    setIsCreateModalOpen(false);
   };
 
   const updateMutation = useMutation(
@@ -73,6 +79,18 @@ export default function Home() {
   const handleUpdate = (updatedItem) => {
     updateMutation.mutate(updatedItem);
   };
+
+  const { data: rewards, isLoading: rewardLoading } = useFetchRewards(
+    user?.role === "student"
+  );
+
+  const { data: levels } = useQuery({
+    queryKey: ["levels"],
+    queryFn: fetchLevels,
+    enabled: user?.role === "student",
+  });
+
+  console.log({ levels });
 
   if (isLoading)
     return (
@@ -112,10 +130,27 @@ export default function Home() {
       {user?.role === "student" && (
         <div className="grid grid-cols-9 gap-4">
           <div className="bg-primary text-white col-span-3 rounded-xl shadow-lg">
-            <ProfileCard user={user} />
+            <ProfileCard
+              user={user}
+              minPoint={levels?.map((l) => l.min_reward_point)[0]}
+              maxPoint={
+                levels?.map((l) => l.min_reward_point)[levels?.length - 1]
+              }
+              progress={calculateLevelProgress(
+                rewards?.[0].reward_points,
+                levels
+                  ?.map((l) => l.min_reward_point)
+                  .reduce((accu, curr) => accu + curr, 0)
+              )}
+            />
           </div>
           <div className="col-span-6 bg-white rounded-xl py-4">
-            <MileStones user={user} />
+            <MileStones
+              user={user}
+              levels={levels}
+              rewards={rewards}
+              rewardLoading={rewardLoading}
+            />
           </div>
         </div>
       )}

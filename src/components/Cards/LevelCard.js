@@ -10,7 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { endpoints } from "@/utils/endpoints";
 import toast from "react-hot-toast";
 
-export default function LevelCard({ level, id, minRewardPoint }) {
+export default function LevelCard({ level, id, minRewardPoint, name }) {
   const [show, setShow] = useState(false);
   const router = useRouter();
 

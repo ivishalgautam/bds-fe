@@ -44,8 +44,6 @@ const CourseAccordion = ({
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  // console.log({ projects, myProjects });
-
   function getQuiz(weeks) {
     return quizs?.filter((quiz) => quiz.weeks === weeks);
   }
@@ -64,7 +62,7 @@ const CourseAccordion = ({
 
   const getMyHomework = (week, day) => {
     return myHomeworks
-      .filter((mh) => week === mh.week)
+      ?.filter((mh) => week === mh.week)
       .filter((d) => d.day === day);
   };
   const isProject = (week) => {
@@ -190,21 +188,6 @@ const CourseAccordion = ({
               </div>
             )}
 
-            {/* <Link
-                  href={
-                    user?.role !== "student"
-                      ? "#"
-                      : !getQuiz(item.weeks)[0]?.is_disabled
-                      ? "#"
-                      : `/batches/quiz/${batchId}?w=${item.weeks}`
-                  }
-                  className={`ml-auto mr-10 text-xs font-semibold ${
-                    getQuiz(item.weeks)[0]?.is_disabled && "cursor-not-allowed"
-                  }`}
-                >
-                  <MdOutlineQuiz size={25} className="text-primary" />
-                  Quiz
-                </Link> */}
             <svg
               className={`w-5 h-5 transition-transform duration-300 ${
                 openIndex !== index ? "transform rotate-180" : ""

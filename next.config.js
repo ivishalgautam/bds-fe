@@ -1,7 +1,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["localhost"],
+    domains: ["api.bdsconnectcc.in"],
   },
 };
 

@@ -40,7 +40,7 @@ function OngoingCourses() {
               group_id,
             }) => {
               return (
-                <div className="rounded-lg bg-white shadow-lg">
+                <div className="rounded-lg bg-white shadow-lg" key={id}>
                   <Link href={`/classes/${id}`} key={id}>
                     <div className="shadow-lg">
                       <img

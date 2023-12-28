@@ -12,7 +12,6 @@ const fetchBatches = () => {
 };
 
 export default function ProfileCard({ user, progress, minPoint, maxPoint }) {
-  console.log({ minPoint, maxPoint });
   const { data: courses, isLoading: coursesLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: fetchCourses,

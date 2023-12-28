@@ -90,8 +90,6 @@ export default function Home() {
     enabled: user?.role === "student",
   });
 
-  console.log({ levels });
-
   if (isLoading)
     return (
       <div className="flex justify-center">

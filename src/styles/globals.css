@@ -87,14 +87,6 @@
   display: none !important;
 }
 
-iframe > span#ChromelessStatusBar.RightDock {
-  display: none !important;
-}
-
-iframe span #ChromelessStatusBar.RightDock {
-  display: none !important;
-}
-
-iframe span#ChromelessStatusBar.RightDock {
+#ChromelessStatusBar.RightDock {
   display: none !important;
 }

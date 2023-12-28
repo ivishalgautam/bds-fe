@@ -22,23 +22,27 @@ export default function PPT() {
   }, [pptUrl]);
 
   useEffect(() => {
-    // Get the iframe element
-    // const iframe = document.getElementsByTagName("iframe");
+    // Get all iframes in the document
+    var iframes =
+      typeof document !== "undefined" && document.querySelectorAll("iframe");
 
-    // // Get the iframe's document
-    // const iframeDocument = iframe.contentWindow.document;
+    // Loop through each iframe
+    iframes.forEach(function (iframe) {
+      // Get the content document of the iframe
+      var iframeDocument =
+        iframe.contentDocument || iframe.contentWindow.document;
 
-    // Get the element inside the iframe by its ID
-    const iframeElement = document.getElementById(
-      "ChromelessStatusBar.RightDock"
-    );
-    console.log({ iframeElement });
-    // Style the element
-    // iframeElement.style.color = "red";
-    // iframeElement.style.backgroundColor = "yellow";
+      // Find the element with class "mce-content-body" inside the iframe content
+      var element = iframeDocument.querySelector(
+        "#ChromelessStatusBar.RightDock"
+      );
+
+      // Set its HTML content to the response (assuming response is a string containing HTML)
+      if (element) {
+        element.style.display = "none";
+      }
+    });
   }, []);
-
-  const openDoc = (path) => {};
 
   return (
     <div className="h-[600px]">

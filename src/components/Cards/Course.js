@@ -46,7 +46,7 @@ export default function Course({
   return (
     <div className="bg-white rounded-xl" onMouseLeave={() => setShow(false)}>
       <img
-        src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}${thumbnail}`}
+        src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${thumbnail}`}
         alt=""
         className="h-48 w-full object-cover rounded-t-xl"
       />

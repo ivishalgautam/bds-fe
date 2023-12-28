@@ -86,3 +86,7 @@
 .ppt-iframe .ndfHFb-c4YZDc-Wrql6b {
   display: none !important;
 }
+
+iframe > #ChromelessStatusBar.RightDock {
+  display: none !important;
+}

@@ -171,6 +171,12 @@ export const AllRoutes = [
     roles: [ROLES.STUDENT, ROLES.TEACHER],
   },
   {
+    label: "Classes",
+    link: "/classes/chat/[id]",
+    icon: MdBook,
+    roles: [ROLES.STUDENT, ROLES.TEACHER],
+  },
+  {
     label: "Presentation",
     link: "/presentation",
     icon: MdBook,
@@ -350,12 +356,12 @@ export const AllRoutes = [
       ROLES.STUDENT,
     ],
   },
-  {
-    label: "Chat to Community",
-    link: "/chat",
-    icon: FaHeadphones,
-    roles: [ROLES.TEACHER, ROLES.STUDENT],
-  },
+  // {
+  //   label: "Chat to Community",
+  //   link: "/chat",
+  //   icon: FaHeadphones,
+  //   roles: [ROLES.TEACHER, ROLES.STUDENT],
+  // },
   {
     label: "My Recordings",
     link: "/recordings",

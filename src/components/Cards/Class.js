@@ -48,7 +48,7 @@ export default function ClassCard({
           </div>
         </button>
         {group_id && group_id !== null && (
-          <button onClick={() => handleNavigate(`/buddy-team/${group_id}`)}>
+          <button onClick={() => handleNavigate(`/classes/chat/${group_id}`)}>
             <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-md">
               <IoChatboxEllipsesOutline size={25} />
               <span>Chat</span>

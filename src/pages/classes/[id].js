@@ -152,7 +152,7 @@ export default function Classes() {
                 </h1>
 
                 {batch?.group_id && batch.group_id !== null && (
-                  <Link href={`/buddy-team/${batch.group_id}`}>
+                  <Link href={`/classes/chat/${batch.group_id}`}>
                     <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-full">
                       <IoChatboxEllipsesOutline size={30} />
                       <span>Chat</span>

@@ -45,7 +45,7 @@ export default function PPT() {
   }, []);
 
   return (
-    <div className="h-[600px]">
+    <div className="h-[600px] iframe-container">
       {/* <PdfViewerComponent embedUrl={pptUrl} /> */}
       <DocViewerApp docs={docs} />
     </div>

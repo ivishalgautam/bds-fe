@@ -5,14 +5,6 @@ import useLocalStorage from "@/utils/useLocalStorage";
 function DocViewerApp({ docs }) {
   const [accessToken] = useLocalStorage("token");
 
-  const iframeElement =
-    typeof document !== "undefined" &&
-    document.getElementById("ChromelessStatusBar.RightDock");
-
-  if (typeof document !== "undefined") {
-    iframeElement.style.display = "none";
-  }
-
   return (
     <DocViewer
       documents={docs}

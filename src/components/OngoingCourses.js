@@ -40,8 +40,8 @@ function OngoingCourses() {
               group_id,
             }) => {
               return (
-                <Link href={`/classes/${id}`} key={id}>
-                  <div className="rounded-lg bg-white shadow-lg">
+                <div className="rounded-lg bg-white shadow-lg">
+                  <Link href={`/classes/${id}`} key={id}>
                     <div className="shadow-lg">
                       <img
                         src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${course_thumbnail}`}
@@ -72,29 +72,28 @@ function OngoingCourses() {
                         {calculateProgress(course_syllabus).progress}%
                       </span>
                     </div>
-
-                    <div className="p-4 pt-0 grid grid-cols-2 gap-4 text-xs font-bold">
-                      <button onClick={() => handleNavigate(`/classes/${id}`)}>
+                  </Link>
+                  <div className="p-4 pt-0 grid grid-cols-2 gap-4 text-xs font-bold">
+                    <button onClick={() => handleNavigate(`/classes/${id}`)}>
+                      <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-md">
+                        <IoEyeOutline size={20} />
+                        <span>View</span>
+                      </div>
+                    </button>
+                    {group_id && group_id !== null && (
+                      <button
+                        onClick={() =>
+                          handleNavigate(`/classes/chat/${group_id}`)
+                        }
+                      >
                         <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-md">
-                          <IoEyeOutline size={20} />
-                          <span>View</span>
+                          <IoChatboxEllipsesOutline size={20} />
+                          <span>Chat</span>
                         </div>
                       </button>
-                      {group_id && group_id !== null && (
-                        <button
-                          onClick={() =>
-                            handleNavigate(`/classes/chat/${group_id}`)
-                          }
-                        >
-                          <div className="flex items-center justify-center gap-1.5 bg-primary text-white py-1.5 px-4 rounded-md">
-                            <IoChatboxEllipsesOutline size={20} />
-                            <span>Chat</span>
-                          </div>
-                        </button>
-                      )}
-                    </div>
+                    )}
                   </div>
-                </Link>
+                </div>
               );
             }
           )}

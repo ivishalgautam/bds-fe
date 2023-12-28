@@ -101,7 +101,7 @@ export default function Chat() {
     });
 
     socketRef.current.addEventListener("close", () => {
-      console.log("WebSocket closed");
+      console.log("Connected");
     });
 
     return () => {
@@ -112,7 +112,7 @@ export default function Chat() {
   useEffect(() => {
     messagesEndRef?.current?.scrollIntoView({ behavior: "smooth" });
     return () => {
-      console.log("chat unmount 0");
+      // console.log("chat unmount 0");
     };
   }, [chats]);
 
@@ -125,7 +125,7 @@ export default function Chat() {
 
   return (
     <div className="space-y-6">
-      <Title text="Community Chat" />
+      <Title text="Chat" />
       <ChatScreen
         groupMembersLoading={groupMembersLoading}
         groupMembers={groupMembers}

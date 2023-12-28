@@ -83,18 +83,6 @@
   display: none;
 }
 
-.ppt-iframe .ndfHFb-c4YZDc-Wrql6b {
-  display: none !important;
-}
-
 #ChromelessStatusBar.RightDock {
-  display: none !important;
-}
-
-.iframe-container iframe {
-  background-color: #5542d7;
-}
-
-.iframe-container iframe #ChromelessStatusBar.RightDock {
   display: none !important;
 }

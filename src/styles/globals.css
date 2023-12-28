@@ -87,14 +87,14 @@
   display: none !important;
 }
 
-iframe #ChromelessStatusBar.RightDock {
+iframe > span#ChromelessStatusBar.RightDock {
   display: none !important;
 }
 
-iframe#ChromelessStatusBar.RightDock {
+iframe span #ChromelessStatusBar.RightDock {
   display: none !important;
 }
 
-iframe > #ChromelessStatusBar.RightDock {
+iframe span#ChromelessStatusBar.RightDock {
   display: none !important;
 }

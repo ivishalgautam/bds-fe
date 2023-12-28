@@ -8,7 +8,10 @@ function DocViewerApp({ docs }) {
   const iframeElement =
     typeof document !== "undefined" &&
     document.getElementById("ChromelessStatusBar.RightDock");
-  iframeElement.style.display = "none";
+
+  if (typeof document !== "undefined") {
+    iframeElement.style.display = "none";
+  }
 
   return (
     <DocViewer

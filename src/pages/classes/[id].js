@@ -57,8 +57,6 @@ export default function Classes() {
     queryFn: fetchUploadedHomeworks,
   });
 
-  // console.log({ homeworks: homeworks?.[0]?.homework });
-
   const { data: projects } = useQuery({
     queryKey: ["fetchProjects"],
     queryFn: fetchProjects,
@@ -123,10 +121,12 @@ export default function Classes() {
   }
 
   const openDoc = (path) => {
+    const filename = getFileName(path);
     const docs = [
       {
-        uri: `${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${path}`,
-        filename: " getFileName(path)",
+        uri: `${process.env.NEXT_PUBLIC_API_URL}${endpoints.files.getFiles}?file_path=${filename}`,
+        // uri: `${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${path}`,
+        filename: filename,
       },
     ];
 

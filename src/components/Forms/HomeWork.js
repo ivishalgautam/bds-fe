@@ -27,6 +27,8 @@ const HomeworkForm = ({ type, handleCreate, productId, handleUpdate }) => {
     name: "homework",
   });
 
+  console.log(fields);
+
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const [token] = useLocalStorage("token");
@@ -70,7 +72,7 @@ const HomeworkForm = ({ type, handleCreate, productId, handleUpdate }) => {
           `${endpoints.homeworks.getAll}/${productId}`
         );
 
-        console.log({ data });
+        // console.log({ data });
         if (courseOptions) {
           const course = courseOptions.find((c) => c.value === data.course_id);
           setValue("course_id", course);
@@ -275,10 +277,10 @@ const HomeworkForm = ({ type, handleCreate, productId, handleUpdate }) => {
                           <AiOutlineFileDone
                             size={50}
                             onClick={() => {
-                              const fileName = day.file.split("/documents/")[1];
+                              const fileName = day.file.split("/").slice(-1)[0];
                               const docs = [
                                 {
-                                  uri: `${baseUrl}${endpoints.files.getFiles}?file_path=documents/${fileName}`,
+                                  uri: `${baseUrl}${endpoints.files.getFiles}?file_path=${fileName}`,
                                   fileName: fileName,
                                 },
                               ];
@@ -339,11 +341,11 @@ const HomeworkForm = ({ type, handleCreate, productId, handleUpdate }) => {
                           <AiOutlineFileDone
                             size={50}
                             onClick={() => {
-                              const fileName =
-                                day.ppt_file.split("/documents/")[1];
+                              const fileName = day.file.split("/").slice(-1)[0];
+
                               const docs = [
                                 {
-                                  uri: `${baseUrl}${endpoints.files.getFiles}?file_path=documents/${fileName}`,
+                                  uri: `${baseUrl}${endpoints.files.getFiles}?file_path=${fileName}`,
                                   fileName: fileName,
                                 },
                               ];

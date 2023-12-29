@@ -49,9 +49,11 @@ const CourseAccordion = ({
   }
 
   const isHomework = (week, day) => {
-    return homeworks[0]?.homework
+    const data = homeworks[0]?.homework
       ?.filter((h) => h.weeks === week)[0]
       .day_wise.filter((homework) => homework.days === day);
+
+    return data;
   };
 
   const isPpt = (index, day) => {
@@ -225,7 +227,7 @@ const CourseAccordion = ({
                                 item.weeks,
                                 day.days
                               ).length > 0 ? (
-                              user?.role === "student" && day.is_completed ? (
+                              user?.role === "student" ? (
                                 <div className="relative">
                                   <AiFillCloseCircle
                                     className="absolute -top-2 -right-2 text-rose-500 z-50 cursor-pointer"

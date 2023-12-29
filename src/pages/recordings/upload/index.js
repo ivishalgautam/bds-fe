@@ -1,6 +1,6 @@
 import Title from "@/components/Title";
 import React, { useState } from "react";
-import UploadRecordingImg from "../../assets/upload-recording.svg";
+// import UploadRecordingImg from "../../assets/upload-recording.svg";
 import Image from "next/image";
 import { useFetchCoursesNames } from "@/hooks/useFetchCoursesName";
 import { Controller, useForm } from "react-hook-form";
@@ -10,12 +10,12 @@ import useLocalStorage from "@/utils/useLocalStorage";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 import { endpoints } from "@/utils/endpoints";
-import UploadImg from "../../assets/upload.svg";
+import UploadImg from "../../../assets/upload.svg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import http from "@/utils/http";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
-import { useRef } from 'react';
+import { useRef } from "react";
 
 const createRecordings = async (newItem) => {
   await http().post(endpoints.recordings.getAll, newItem);
@@ -71,7 +71,7 @@ function UploadRecording() {
       const formData = new FormData();
       formData.append("file", selectedFile);
       const response = await axios.post(
-        `${baseUrl}${endpoints.files.upload}`,
+        `${baseUrl}${endpoints.files.getFiles}/video`,
         formData,
         {
           headers: {
@@ -80,6 +80,8 @@ function UploadRecording() {
           },
         }
       );
+
+      console.log(response.data);
       setFeatured(response.data.path[0]);
       // setFeaturedErr("");
 
@@ -98,7 +100,6 @@ function UploadRecording() {
       heading: data.heading,
       description: data.description,
       video_url: featured,
-      course_id: data.course_id.value,
       batch_id: data.batch_id.value,
     };
     console.log(paylaod);
@@ -125,7 +126,7 @@ function UploadRecording() {
           ) : featured ? (
             <>
               <div class="w-full rounded-md flex items-center justify-center">
-                <video src={featured} controls/>
+                <video src={`${process.env.AWS_PATH}/${featured}`} controls />
               </div>
               <input
                 id="file-upload"
@@ -157,7 +158,7 @@ function UploadRecording() {
         {featuredErr && <span className="text-red-600">{featuredErr}</span>} */}
       </div>
       <div className="grid grid-cols-2 gap-8">
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <label htmlFor="courseId" className="font-bold">
             Course
           </label>
@@ -182,7 +183,7 @@ function UploadRecording() {
           {errors.course_id && (
             <span className="text-red-600">This field is required</span>
           )}
-        </div>
+        </div> */}
         <div className="space-y-2">
           <label htmlFor="batchId" className="font-bold">
             Course

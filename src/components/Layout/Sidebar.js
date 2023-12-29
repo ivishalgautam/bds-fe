@@ -16,7 +16,7 @@ export default function Sidebar() {
       !item.link.includes("/edit") &&
       !item.link.includes("/create") &&
       !item.link.includes("[id]") &&
-      !item.link.includes("/upload-recordings") &&
+      !item.link.includes("/upload") &&
       !item.link.includes("/notes") &&
       !item.link.includes("/todos") &&
       !item.link.includes("/[courseId]/[batchId]/[week]") &&

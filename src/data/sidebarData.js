@@ -370,7 +370,7 @@ export const AllRoutes = [
   },
   {
     label: "My Recordings",
-    link: "/recordings/upload-recordings",
+    link: "/recordings/upload",
     icon: FaHeadphones,
     roles: [ROLES.TEACHER],
   },

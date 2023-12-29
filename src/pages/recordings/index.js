@@ -50,7 +50,7 @@ function Recordings() {
       </div>
     );
   if (isError) return <h2>Error</h2>;
-
+  console.log({ selected });
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -69,7 +69,7 @@ function Recordings() {
       <div className="grid grid-cols-2 gap-12">
         {user?.role !== "student" && (
           <Link
-            href="/recordings/upload-recording"
+            href="/recordings/upload"
             className="bg-white p-4 rounded-xl space-y-4 flex justify-center items-center cursor-pointer"
           >
             <div className="flex flex-col items-center justify-center space-y-4">
@@ -93,7 +93,9 @@ function Recordings() {
                   className="bg-primary w-10/12 rounded-full p-2 text-white"
                   onClick={() => {
                     openModal();
-                    setSelected(item.video_url);
+                    setSelected(
+                      `${process.env.NEXT_PUBLIC_AWS_PATH}/${item.video_url}`
+                    );
                   }}
                 >
                   View Video

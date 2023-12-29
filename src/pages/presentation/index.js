@@ -14,7 +14,6 @@ export default function PPT() {
     const docs = [
       {
         uri: `${process.env.NEXT_PUBLIC_API_URL}${endpoints.files.getFiles}?file_path=${filename}`,
-        // uri: `${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${path}`,
         filename: filename,
       },
     ];

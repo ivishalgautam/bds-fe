@@ -16,6 +16,7 @@ import http from "@/utils/http";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { useRef } from "react";
+import { MdDeleteOutline } from "react-icons/md";
 
 const createRecordings = async (newItem) => {
   await http().post(endpoints.recordings.getAll, newItem);
@@ -81,11 +82,10 @@ function UploadRecording() {
         }
       );
 
-      console.log(response.data);
-      setFeatured(response.data.path[0]);
-      // setFeaturedErr("");
-
-      console.log("Upload successful:", response.data.path[0]);
+      if (response.statusText === "OK") {
+        setFeatured(`${response.data.path[0]}`);
+        toast.success("Video uploaded");
+      }
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
@@ -102,11 +102,29 @@ function UploadRecording() {
       video_url: featured,
       batch_id: data.batch_id.value,
     };
-    console.log(paylaod);
+    // console.log(paylaod);
 
     try {
       handleCreate(paylaod);
       reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteVideoFile = async (key) => {
+    try {
+      const response = await axios.delete(
+        `${baseUrl}${endpoints.files.getFiles}/video?key=${key}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Set the Authorization header with the token
+          },
+        }
+      );
+      if (response.statusText === "OK") {
+        setFeatured(null);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -117,16 +135,26 @@ function UploadRecording() {
       <Title text="Add Recording" />
       {/* <Image src={UploadRecordingImg} alt="" /> */}
 
-      <div class="flex flex-col items-center">
-        <label for="file-upload" className="w-full relative cursor-pointer">
+      <div className="flex flex-col items-center">
+        <label htmlFor="file-upload" className="w-full relative cursor-pointer">
           {loading ? (
             <div className="flex justify-center items-center h-96">
               <Spinner />
             </div>
           ) : featured ? (
             <>
-              <div class="w-full rounded-md flex items-center justify-center">
-                <video src={`${process.env.AWS_PATH}/${featured}`} controls />
+              <div className="w-full rounded-md flex items-center justify-center">
+                <button
+                  onClick={() => deleteVideoFile(featured)}
+                  style={{ background: "#F04461" }}
+                  className="absolute -top-2 -right-2 z-10 p-3 shadow rounded-full border-2 border-white"
+                >
+                  <MdDeleteOutline size={20} fill="#fff" />
+                </button>
+                <video
+                  src={`${process.env.NEXT_PUBLIC_AWS_PATH}/${featured}`}
+                  controls
+                />
               </div>
               <input
                 id="file-upload"
@@ -139,7 +167,7 @@ function UploadRecording() {
             </>
           ) : (
             <>
-              <div class="w-full h-96 rounded-md flex flex-col items-center justify-center border-4 border-dashed border-primary">
+              <div className="w-full h-96 rounded-md flex flex-col items-center justify-center border-4 border-dashed border-primary">
                 <Image src={UploadImg} alt="upload icon" className="" />
                 <p className="text-2xl text-primary font-bold">Upload Video</p>
               </div>
@@ -158,32 +186,6 @@ function UploadRecording() {
         {featuredErr && <span className="text-red-600">{featuredErr}</span>} */}
       </div>
       <div className="grid grid-cols-2 gap-8">
-        {/* <div className="space-y-2">
-          <label htmlFor="courseId" className="font-bold">
-            Course
-          </label>
-          <Controller
-            control={control}
-            name="course_id"
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={courseOptions}
-                placeholder="Course Name"
-                styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                menuPortalTarget={menuPortalTargetRef.current}
-                menuPosition="absolute"
-                //   isDisabled={type === "view"}
-                //   onInputChange={handleCourseChange}
-                className="w-full border outline-none rounded-md font-mulish text-xl font-semibold"
-              />
-            )}
-          />
-          {errors.course_id && (
-            <span className="text-red-600">This field is required</span>
-          )}
-        </div> */}
         <div className="space-y-2">
           <label htmlFor="batchId" className="font-bold">
             Course

@@ -50,7 +50,6 @@ function Recordings() {
       </div>
     );
   if (isError) return <h2>Error</h2>;
-  console.log({ selected });
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -67,7 +66,7 @@ function Recordings() {
       </div>
 
       <div className="grid grid-cols-2 gap-12">
-        {user?.role !== "student" && (
+        {user?.role === "teacher" && (
           <Link
             href="/recordings/upload"
             className="bg-white p-4 rounded-xl space-y-4 flex justify-center items-center cursor-pointer"
@@ -78,6 +77,7 @@ function Recordings() {
             </div>
           </Link>
         )}
+
         {data?.map((item) => (
           <div className="bg-white rounded-xl overflow-hidden" key={item.id}>
             <img src={item.thumbnail} alt="" className="w-full aspect-video" />

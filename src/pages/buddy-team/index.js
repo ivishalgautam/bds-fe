@@ -97,6 +97,8 @@ function BuddyTeam() {
     },
   ];
 
+  const filteredGroups = groups?.filter((g) => g.is_community === false);
+
   if (isLoading)
     return (
       <div className="flex justify-center">
@@ -170,27 +172,25 @@ function BuddyTeam() {
       <div className="px-8 space-y-8 rounded-xl">
         <Title text="Your groups" />
         <div className="grid grid-cols-4 gap-8">
-          {groups?.length === 0 ? (
+          {filteredGroups?.length === 0 ? (
             <p className="text-center">You have no group</p>
           ) : (
-            groups
-              ?.filter((g) => g.is_community === false)
-              .map((item, index) => (
-                <Link key={index} href={`/buddy-team/${item.id}`}>
-                  <div
-                    className={`bg-white p-8 rounded-xl space-y-2 relative border-2 `}
-                  >
-                    <div className="flex">
-                      <img
-                        src={item.group_image}
-                        alt=""
-                        className="w-24 h-24 mx-auto rounded-full shadow-md"
-                      />
-                    </div>
-                    <h3 className="font-bold text-center">{item.group_name}</h3>
+            filteredGroups?.map((item, index) => (
+              <Link key={index} href={`/buddy-team/${item.id}`}>
+                <div
+                  className={`bg-white p-8 rounded-xl space-y-2 relative border-2 `}
+                >
+                  <div className="flex">
+                    <img
+                      src={item.group_image}
+                      alt=""
+                      className="w-24 h-24 mx-auto rounded-full shadow-md"
+                    />
                   </div>
-                </Link>
-              ))
+                  <h3 className="font-bold text-center">{item.group_name}</h3>
+                </div>
+              </Link>
+            ))
           )}
         </div>
       </div>

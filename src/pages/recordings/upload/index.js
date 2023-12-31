@@ -32,6 +32,7 @@ function UploadRecording() {
     formState: { errors },
     setValue,
   } = useForm();
+  const [progress, setProgress] = useState(0);
   const [featured, setFeatured] = useState(null);
   const [loading, setLoading] = useState(false);
   const { data: courseOptions } = useFetchCoursesNames();
@@ -79,6 +80,13 @@ function UploadRecording() {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`, // Set the Authorization header with the token
           },
+          onUploadProgress: (progressEvent) => {
+            console.log(progressEvent);
+            const progress = parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            );
+            setProgress(progress);
+          },
         }
       );
 
@@ -92,6 +100,8 @@ function UploadRecording() {
       setLoading(false);
     }
   };
+
+  // console.log(progress);
 
   const onSubmit = (data) => {
     if (!featured) return;
@@ -139,7 +149,11 @@ function UploadRecording() {
         <label htmlFor="file-upload" className="w-full relative cursor-pointer">
           {loading ? (
             <div className="flex justify-center items-center h-96">
-              <Spinner />
+              <progress
+                id="file"
+                value={progress}
+                max="100"
+              >{`${progress}%`}</progress>
             </div>
           ) : featured ? (
             <>

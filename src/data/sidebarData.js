@@ -112,7 +112,6 @@ export const AllRoutes = [
       ROLES.ADMIN,
       ROLES.MASTER_FRANCHISEE,
       ROLES.SUB_FRANCHISEE,
-      ROLES.TEACHER,
       ROLES.STUDENT,
     ],
   },
@@ -144,19 +143,13 @@ export const AllRoutes = [
       ROLES.MASTER_FRANCHISEE,
       ROLES.SUB_FRANCHISEE,
       ROLES.STUDENT,
-      ROLES.TEACHER,
     ],
   },
   {
     label: "Courses Assign",
     link: "/assign-courses",
     icon: MdBook,
-    roles: [
-      ROLES.ADMIN,
-      ROLES.MASTER_FRANCHISEE,
-      ROLES.SUB_FRANCHISEE,
-      ROLES.TEACHER,
-    ],
+    roles: [ROLES.ADMIN, ROLES.MASTER_FRANCHISEE, ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Classes",
@@ -240,7 +233,7 @@ export const AllRoutes = [
     label: "Batches",
     link: "/batches",
     icon: MdBook,
-    roles: [ROLES.SUB_FRANCHISEE, ROLES.TEACHER],
+    roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Quiz",

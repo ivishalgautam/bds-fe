@@ -45,8 +45,8 @@ const MeetingForm = () => {
 
     try {
       const res = await http().post(endpoints.meeting, payload);
-      console.log(res);
-      if (res.meeting_type === "INSTANT") {
+      // console.log(res);
+      if (res.type === 1) {
         //redirect user to start url
         window.location.href = res.start_url;
       } else {
@@ -57,7 +57,7 @@ const MeetingForm = () => {
       console.log(error);
     }
 
-    console.log(payload);
+    // console.log(payload);
     // You can submit the data to your API or perform any other actions here
   };
   const now = new Date();

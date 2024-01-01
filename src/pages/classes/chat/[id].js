@@ -51,8 +51,6 @@ export default function Chat() {
     enabled: !!group_chat_id,
   });
 
-  // console.log({ groupMembers });
-
   const { mutate } = useMutation(postMessage, {
     onSuccess: () => {
       console.log("message sent");
@@ -101,25 +99,21 @@ export default function Chat() {
     });
 
     socketRef.current.addEventListener("close", () => {
-      console.log("Connected");
+      console.log("Disconnected");
     });
 
     return () => {
       socketRef.current.close();
     };
-  }, []);
+  }, [group_chat_id]);
 
   useEffect(() => {
     messagesEndRef?.current?.scrollIntoView({ behavior: "smooth" });
-    return () => {
-      // console.log("chat unmount 0");
-    };
   }, [chats]);
 
   useEffect(() => {
     if (fetchedChats && fetchedChats.length > 0) {
       setChats(fetchedChats);
-      // console.log(fetchedChats);
     }
   }, [fetchedChats]);
 

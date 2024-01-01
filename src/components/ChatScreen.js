@@ -45,9 +45,8 @@ export default function ChatScreen({
             groupMembers
               ?.filter((i) => i.fullname !== " ")
               .map((member, i) => (
-                <>
+                <div key={i}>
                   <div
-                    key={i}
                     className={`gap-6 px-4 py-2 rounded-md bg-gray-100 cursor-pointer flex items-center justify-start`} // hide current logged in user from chat/member list.
                   >
                     <img
@@ -59,7 +58,7 @@ export default function ChatScreen({
                     </div>
                   </div>
                   {i !== groupMembers?.length - 2 && <hr />}
-                </>
+                </div>
               ))
           )}
         </div>
@@ -67,12 +66,6 @@ export default function ChatScreen({
       <div className="w-2/3 bg-white rounded-xl">
         <div className="bg-primary rounded-xl px-8 py-2 text-white flex items-center gap-6">
           <Image src={Community} alt="coummunity" className="w-20" />
-          <div>
-            <h2 className="text-xl font-mulish font-bold">
-              {/* {selectedUser?.username} */}
-            </h2>
-            {/* <p>{members.length} Members | 02 Teachers</p> */}
-          </div>
         </div>
         <div className="h-96 relative">
           <div className="p-4 h-[80%]	 overflow-y-scroll space-y-2">

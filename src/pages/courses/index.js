@@ -42,6 +42,8 @@ export default function Courses() {
     queryFn: fetchUnassignedCourses,
   });
 
+  console.log({ unAssignedCourses });
+
   const submitQueryMutation = useMutation(submitQuery, {
     onSuccess: () => {
       toast.success("We sent the query");

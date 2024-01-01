@@ -26,8 +26,9 @@ function CreateSchedule({
 
   const onSubmit = (data) => {
     const { batch, ...rest } = data;
+    console.log({ data });
     type === "edit"
-      ? handleUpdate(rest)
+      ? handleUpdate({ batch_id: batch[0].value, ...rest })
       : handleCreate({ batch_id: batch.value, ...rest });
     closeModal();
   };
@@ -40,6 +41,7 @@ function CreateSchedule({
       const formattedSchedule = schedules?.filter(
         (i) => i.id === response.id
       )[0];
+      console.log({ formattedSchedule });
       formattedBatches &&
         setValue(
           "batch",
@@ -47,8 +49,10 @@ function CreateSchedule({
         );
       schedules && setValue("schedule_name", formattedSchedule.schedule_name);
       schedules && setValue("schedule_desc", formattedSchedule.schedule_desc);
-      schedules && setValue("start_time", formattedSchedule.start_time);
-      schedules && setValue("end_time", formattedSchedule.end_time);
+      schedules &&
+        setValue("start_time", formattedSchedule.start_time.split("T")[0]);
+      schedules &&
+        setValue("end_time", formattedSchedule.end_time.split("T")[0]);
     };
     if (scheduleId && (type === "edit" || type === "view")) {
       fetchInfo();

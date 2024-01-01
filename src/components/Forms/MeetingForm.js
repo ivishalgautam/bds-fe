@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import Title from "../Title";
-import moment from "moment";
+import moment from "moment-timezone";
 import { useFetchBatchesNames } from "@/hooks/useFetchBatchesName";
 import Spinner from "../Spinner";
 import http from "@/utils/http";
@@ -35,11 +35,12 @@ const MeetingForm = () => {
       meeting_type: data.meeting_type.value,
       batch_id: data.batch_id.value,
     };
-    
+
     if (data.meeting_type.value === 2) {
-      payload.scheduled_at= moment(data.scheduled_at, "YYYY-MM-DDTHH:mm").format(
-        "YYYY-MM-DDTHH:mm:ss[Z]"
-      )
+      payload.scheduled_at = moment(
+        data.scheduled_at,
+        "YYYY-MM-DDTHH:mm"
+      ).format("YYYY-MM-DDTHH:mm:ss[Z]");
     }
 
     try {
@@ -175,7 +176,9 @@ const MeetingForm = () => {
           </h2>
           <h2>
             <span className="font-bold">Scheduled At</span> :{" "}
-            {moment(meetingDetails.scheduled_at).format("DD/MM/YYYY HH:mm A")}
+            {moment(meetingDetails.start_time)
+              .tz("Asia/Kolkata")
+              .format("DD/MM/YYYY HH:mm A")}
           </h2>
         </div>
       )}

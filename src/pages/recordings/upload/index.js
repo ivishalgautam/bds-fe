@@ -81,7 +81,6 @@ function UploadRecording() {
             Authorization: `Bearer ${token}`, // Set the Authorization header with the token
           },
           onUploadProgress: (progressEvent) => {
-            console.log(progressEvent);
             const progress = parseInt(
               Math.round((progressEvent.loaded * 100) / progressEvent.total)
             );
@@ -96,6 +95,7 @@ function UploadRecording() {
       }
     } catch (error) {
       console.error("Error uploading image:", error);
+      toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }

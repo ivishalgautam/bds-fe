@@ -15,17 +15,18 @@ const fetchBatches = () => {
   return http().get(endpoints.batch.getAll);
 };
 
-const fetchSchedules = async (batchId) => {
-  return http().get(`${endpoints.schedules.getAll}/${batchId}`);
-};
-
 const createSchedule = async (newItem) => {
   await http().post(endpoints.schedules.getAll, newItem);
 };
 
 const updateSchedule = async (scheduleId, updatedItem) => {
   console.log({ scheduleId, updatedItem });
-  await http().put(`${endpoints.schedules.getAll}/${scheduleId}`, updatedItem);
+  const data = await http().put(
+    `${endpoints.schedules.getAll}/${scheduleId}`,
+    updatedItem
+  );
+  console.log({ data });
+  return data;
 };
 
 export default function Schedules() {
@@ -50,8 +51,13 @@ export default function Schedules() {
 
   const { data } = useQuery({
     queryKey: ["schedules", batchId],
-    queryFn: () => (batchId ? fetchSchedules(batchId) : Promise.resolve()),
+    queryFn: fetchSchedules,
+    enabled: !!batchId,
   });
+
+  async function fetchSchedules() {
+    return http().get(`${endpoints.schedules.getAll}/${batchId}`);
+  }
 
   useEffect(() => {
     setMeetings(data);

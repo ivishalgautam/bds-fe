@@ -43,7 +43,7 @@ export default function MFCourse({
               type="button"
               className="bg-primary inline-block font-primary text-white p-2 rounded-md"
             >
-              Enquired
+              Enquiry sent
             </button>
           )
         ) : (

@@ -106,7 +106,7 @@ export default function HomeWorkCard({
         </div>
       </div>
 
-      <div className="flex items-center justify-end">
+      {/* <div className="flex items-center justify-end">
         <label className="switch">
           <input
             type="checkbox"
@@ -120,7 +120,7 @@ export default function HomeWorkCard({
           />
           <span className="slider"></span>
         </label>
-      </div>
+      </div> */}
     </div>
   );
 }

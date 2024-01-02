@@ -42,8 +42,6 @@ export default function Homework() {
     queryFn: fetchHomeworks,
   });
 
-  console.log(data);
-
   const queryClient = useQueryClient();
 
   const createMutation = useMutation(createItem, {

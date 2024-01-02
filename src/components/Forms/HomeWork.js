@@ -11,8 +11,11 @@ import { useFetchCoursesNames } from "@/hooks/useFetchCoursesName";
 import { AiFillCloseCircle, AiOutlineFileDone } from "react-icons/ai";
 import Modal from "@/components/Modal";
 import DocViewerApp from "@/components/DocViewerApp";
+import { useRouter } from "next/router";
 
 const HomeworkForm = ({ type, handleCreate, productId, handleUpdate }) => {
+  const router = useRouter();
+  const { pathname } = router;
   const {
     handleSubmit,
     control,
@@ -26,8 +29,6 @@ const HomeworkForm = ({ type, handleCreate, productId, handleUpdate }) => {
     control,
     name: "homework",
   });
-
-  console.log(fields);
 
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -179,7 +180,7 @@ const HomeworkForm = ({ type, handleCreate, productId, handleUpdate }) => {
           <div className="space-y-6">
             <div className="space-y-2">
               {type === "view" && <label htmlFor="courseId">Course</label>}
-              {courseOptions && (
+              {!pathname.includes("edit") && courseOptions && (
                 <Controller
                   control={control}
                   name="course_id"

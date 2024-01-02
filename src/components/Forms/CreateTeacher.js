@@ -83,10 +83,10 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
             size={40}
             className="mr-2"
             onClick={() => {
-              const fileName = documents[i].split("/documents/")[1];
+              const fileName = documents[i].split("/").slice(-1)[0];
               const docs = [
                 {
-                  uri: `${baseUrl}${endpoints.files.getFiles}?file_path=documents/${fileName}`,
+                  uri: `${baseUrl}${endpoints.files.getFiles}?file_path=${fileName}`,
                   fileName: fileName,
                 },
               ];
@@ -450,7 +450,7 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
               <>
                 <div className="w-full rounded-md flex items-center justify-center">
                   <img
-                    src={featured}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${featured}`}
                     alt="upload icon"
                     className="w-48 mb-4  object-contain rounded-md"
                   />

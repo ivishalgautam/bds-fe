@@ -167,7 +167,7 @@ function CreateQuiz({ type }) {
 
   const handleUpdate = (updatedItem) => {
     updateMutation.mutate(updatedItem);
-    navigate("/quiz");
+    router.push("/quiz");
   };
 
   return (

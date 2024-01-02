@@ -290,10 +290,11 @@ function MultiStepForm({ type, id, action, title }) {
             size={40}
             className="mr-2"
             onClick={() => {
-              const fileName = documents[i].split("/documents/")[1];
+              const fileName = documents[i].split("/").slice(-1)[0];
+              console.log(fileName);
               const docs = [
                 {
-                  uri: `${baseUrl}${endpoints.files.getFiles}?file_path=documents/${fileName}`,
+                  uri: `${baseUrl}${endpoints.files.getFiles}?file_path=${fileName}`,
                   fileName: fileName,
                 },
               ];

@@ -36,6 +36,8 @@ export default function Announcements() {
     queryFn: fetchAnnouncements,
   });
 
+  console.log({ data });
+
   const queryClient = useQueryClient();
 
   const createMutation = useMutation(createAnnouncement, {
@@ -148,7 +150,7 @@ export default function Announcements() {
                 <div className="flex items-center gap-4">
                   {item.image_url ? (
                     <img
-                      src={item.image_url}
+                      src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${item.image_url}`}
                       alt=""
                       className="h-16 w-16  object-cover rounded-full"
                     />

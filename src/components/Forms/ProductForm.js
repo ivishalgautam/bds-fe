@@ -293,7 +293,7 @@ const ProductForm = ({
               <div className="w-full rounded-md flex items-center justify-center">
                 {featured ? (
                   <img
-                    src={`${featured}`}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${featured}`}
                     alt="upload icon"
                     className="w-full object-contain aspect-video rounded-md"
                   />

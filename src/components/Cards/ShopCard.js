@@ -27,11 +27,11 @@ export default function ShopCard({
               className="bg-primary py-2 px-6 text-white rounded-md"
               onClick={() => handleEnquiryProduct(id)}
             >
-              Buy Now
+              Enquire now
             </button>
           ) : (
             <button className="bg-primary py-2 px-6 text-white rounded-md">
-              Queried
+              Enquiry sent
             </button>
           )}
           {/* <button className="text-primary font-bold">View Product</button> */}

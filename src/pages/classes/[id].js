@@ -42,6 +42,13 @@ export default function Classes() {
   const [batches, setBatches] = useState([]);
   const router = useRouter();
   const { id } = router.query;
+
+  const fetchQuizes = async () => {
+    return await http().get(
+      `${endpoints.quiz.getAll}/course/${batches?.[0]?.course_id}`
+    );
+  };
+
   const { isLoading, isError, data } = useQuery({
     queryKey: ["fetchBatches"],
     queryFn: fetchBatches,
@@ -65,6 +72,12 @@ export default function Classes() {
   const { data: myProjects } = useQuery({
     queryKey: ["fetchMyProjects"],
     queryFn: fetchUploadedProjects,
+  });
+
+  const { data: quizs } = useQuery({
+    queryKey: ["fetchMyProjects"],
+    queryFn: fetchQuizes,
+    enabled: !!batches?.[0]?.course_id,
   });
 
   useEffect(() => {
@@ -166,7 +179,7 @@ export default function Classes() {
                 data={batch.course_syllabus}
                 batchId={batch.id}
                 handleWeekComplete={handleWeekComplete}
-                quizs={batch.quiz}
+                quizs={quizs}
                 homeworks={homeworks?.filter(
                   (homework) => homework.course_id === batch.course_id
                 )}

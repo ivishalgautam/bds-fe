@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [
       "api.bdsconnectcc.in",
       "bds-files-uploads.s3.ap-south-1.amazonaws.com",
+      "localhost",
     ],
   },
 };

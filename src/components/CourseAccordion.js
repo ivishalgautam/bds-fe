@@ -39,7 +39,6 @@ const CourseAccordion = ({
   const { user } = useContext(MainContext);
   const [openIndex, setOpenIndex] = useState(null);
   const queryClient = useQueryClient();
-
   const handleToggleAccordion = (index) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };

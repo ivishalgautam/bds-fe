@@ -326,7 +326,7 @@ export default function CreateCourse({ id, type, handleUpdate }) {
                   <>
                     <div class="w-full rounded-md flex items-center justify-center">
                       <img
-                        src={featured}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${featured}`}
                         alt="upload icon"
                         className="w-80 mb-4 aspect-video object-cover rounded-md"
                       />
@@ -343,8 +343,8 @@ export default function CreateCourse({ id, type, handleUpdate }) {
                 ) : (
                   <>
                     <div class="w-full rounded-md flex items-center justify-center">
-                      <Image
-                        src={UploadImg}
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${featured}`}
                         alt="upload icon"
                         className="w-full object-cover rounded-md"
                       />

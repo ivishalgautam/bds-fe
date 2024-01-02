@@ -244,10 +244,10 @@ const ProjectForm = ({
                   size={40}
                   className="mr-2 cursor-pointer"
                   onClick={() => {
-                    const fileName = featured.split("/documents/")[1];
+                    const fileName = featured.split("/").slice(-1)[0];
                     const docs = [
                       {
-                        uri: `${baseUrl}${endpoints.files.getFiles}?file_path=documents/${fileName}`,
+                        uri: `${baseUrl}${endpoints.files.getFiles}?file_path=${fileName}`,
                         fileName: fileName,
                       },
                     ];

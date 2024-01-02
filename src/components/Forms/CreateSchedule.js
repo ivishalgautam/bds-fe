@@ -41,7 +41,7 @@ function CreateSchedule({
       const formattedSchedule = schedules?.filter(
         (i) => i.id === response.id
       )[0];
-      console.log({ formattedSchedule });
+      // console.log({ formattedSchedule });
       formattedBatches &&
         setValue(
           "batch",
@@ -51,8 +51,8 @@ function CreateSchedule({
       schedules && setValue("schedule_desc", formattedSchedule.schedule_desc);
       schedules &&
         setValue("start_time", formattedSchedule.start_time.split("T")[0]);
-      schedules &&
-        setValue("end_time", formattedSchedule.end_time.split("T")[0]);
+      // schedules &&
+      //   setValue("end_time", formattedSchedule.end_time.split("T")[0]);
     };
     if (scheduleId && (type === "edit" || type === "view")) {
       fetchInfo();
@@ -121,7 +121,7 @@ function CreateSchedule({
 
         {/* start time */}
         <div>
-          <label htmlFor="courseName">Start time</label>
+          <label htmlFor="courseName">Date</label>
           <input
             type="date"
             id="courseName"
@@ -135,7 +135,7 @@ function CreateSchedule({
         </div>
 
         {/* end time */}
-        <div>
+        {/* <div>
           <label htmlFor="courseName">End time</label>
           <input
             type="date"
@@ -147,7 +147,7 @@ function CreateSchedule({
           {errors.course_name && (
             <span className="text-red-600">This field is required</span>
           )}
-        </div>
+        </div> */}
       </div>
       <button
         type="submit"

@@ -105,22 +105,6 @@ export default function HomeWorkCard({
           )}
         </div>
       </div>
-
-      {/* <div className="flex items-center justify-end">
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={isDisabled}
-            // onChange={(e) => {
-            //   updateStudent({
-            //     id: row.id,
-            //     data: { is_disabled: e.target.checked },
-            //   });
-            // }}
-          />
-          <span className="slider"></span>
-        </label>
-      </div> */}
     </div>
   );
 }

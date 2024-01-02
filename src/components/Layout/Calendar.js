@@ -206,7 +206,7 @@ export default function Calender({
 
 function Meeting({ meeting, user, setType, openModal, setScheduleId }) {
   let startDateTime = parseISO(meeting.start_time);
-  let endDateTime = parseISO(meeting.end_time);
+  // let endDateTime = parseISO(meeting.end_time);
 
   return (
     <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
@@ -222,10 +222,6 @@ function Meeting({ meeting, user, setType, openModal, setScheduleId }) {
           <time dateTime={meeting.start_time}>
             {format(startDateTime, "h:mm a")}
           </time>{" "}
-          -{" "}
-          <time dateTime={meeting.end_time}>
-            {format(endDateTime, "h:mm a")}
-          </time>
         </p>
       </div>
 

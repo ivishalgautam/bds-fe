@@ -71,27 +71,32 @@ function BuddyTeam() {
 
   const GroupImages = [
     {
-      value: "http://localhost:3001/public/images/group1.svg",
+      value:
+        "https://bds-files-uploads.s3.ap-south-1.amazonaws.com/public/images/group1.svg",
       label: "group1",
       imageSrc: Group1,
     },
     {
-      value: "http://localhost:3001/public/images/group2.svg",
+      value:
+        "https://bds-files-uploads.s3.ap-south-1.amazonaws.com/public/images/group2.svg",
       label: "group2",
       imageSrc: Group2,
     },
     {
-      value: "http://localhost:3001/public/images/group3.svg",
+      value:
+        "https://bds-files-uploads.s3.ap-south-1.amazonaws.com/public/images/group3.svg",
       label: "group3",
       imageSrc: Group3,
     },
     {
-      value: "http://localhost:3001/public/images/group4.svg",
+      value:
+        "https://bds-files-uploads.s3.ap-south-1.amazonaws.com/public/images/group4.svg",
       label: "group4",
       imageSrc: Group4,
     },
     {
-      value: "http://localhost:3001/public/images/group5.svg",
+      value:
+        "https://bds-files-uploads.s3.ap-south-1.amazonaws.com/public/images/group5.svg",
       label: "group5",
       imageSrc: Group5,
     },

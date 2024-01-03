@@ -3,8 +3,6 @@ import http from "@/utils/http";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import React from "react";
-import { FiMoreVertical } from "react-icons/fi";
-import { MdModeEditOutline } from "react-icons/md";
 
 async function fetchCourseEnquiries() {
   return await http().get(`${endpoints.courses.getAll}/enquiry`);
@@ -15,6 +13,8 @@ export default function CourseEnquiries() {
     queryKey: ["course-enquiries"],
     queryFn: fetchCourseEnquiries,
   });
+
+  console.log({ data });
 
   return (
     <div>
@@ -33,6 +33,9 @@ export default function CourseEnquiries() {
               </th>
               <th scope="col" className="px-6 py-3">
                 Enquiry by (email)
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Enquiry by (phone)
               </th>
               <th scope="col" className="px-6 py-3">
                 Status
@@ -56,6 +59,9 @@ export default function CourseEnquiries() {
                 </th>
                 <td className="px-6 py-4 text-gray-700">{item.username}</td>
                 <td className="px-6 py-4 text-gray-700">{item.email}</td>
+                <td className="px-6 py-4 text-gray-700">
+                  {item.mobile_number}
+                </td>
                 <td className="px-6 py-4 text-gray-700">
                   {item.is_assigned === true ? "Assigned" : "Not assigned"}
                 </td>

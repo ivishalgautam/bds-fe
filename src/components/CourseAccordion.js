@@ -43,6 +43,8 @@ const CourseAccordion = ({
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
+  console.log({ quizs });
+
   function getQuiz(weeks) {
     return quizs?.filter((quiz) => quiz.weeks === weeks);
   }

@@ -18,8 +18,6 @@ export default function MasterFranchisee() {
     queryFn: fetchFranchisees,
   });
 
-  console.log({ data });
-
   if (isLoading)
     return (
       <div className="flex justify-center">

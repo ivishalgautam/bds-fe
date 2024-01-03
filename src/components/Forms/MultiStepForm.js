@@ -164,6 +164,7 @@ function MultiStepForm({ type, id, action, title }) {
     const franchiseePayload = {
       franchisee_name: data.masterFranchiseeName,
       gst_number: data.gst,
+      password: data.password,
       document_url: documents,
       ...(data.masterFranchisee?.value && {
         franchisee_id: data.masterFranchisee.value,

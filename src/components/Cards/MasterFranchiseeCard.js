@@ -85,8 +85,8 @@ export default function MasterFranchiseeCard({
         </div>
       </div>
       <div className="flex justify-between">
-        <p className="text-md font-bold">Sub Franchisies</p>
-        <p>{subFranchisies} Sub Franchisee</p>
+        <p className="text-md font-bold">Franchisies</p>
+        <p>{subFranchisies} Franchisee</p>
       </div>
       <div className="flex justify-between">
         <p className="text-md font-bold">Total Students</p>

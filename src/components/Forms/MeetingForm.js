@@ -9,6 +9,7 @@ import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
 import { MainContext } from "@/store/context";
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const MeetingForm = ({ closeMeetingModal }) => {
   const {
@@ -56,9 +57,12 @@ const MeetingForm = ({ closeMeetingModal }) => {
         // setShow(true);
         queryClient.invalidateQueries("meetings");
       }
+
       closeMeetingModal();
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
+      closeMeetingModal();
     }
 
     // console.log(payload);
@@ -69,7 +73,7 @@ const MeetingForm = ({ closeMeetingModal }) => {
 
   // Options for the meeting type select field
   const meetingTypeOptions = [
-    { value: 1, label: "Instant" },
+    // { value: 1, label: "Instant" },
     { value: 2, label: "Schedule" },
   ];
 

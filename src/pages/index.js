@@ -106,7 +106,7 @@ export default function Home() {
     },
     {
       title: data.reports?.total_sub_franchisee || 0,
-      description: "Total Sub-Franchisee",
+      description: "Total Franchisee",
       bg: "bg-[#FFE2E2]",
     },
     {

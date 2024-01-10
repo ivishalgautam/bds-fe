@@ -414,4 +414,10 @@ export const AllRoutes = [
     icon: BsShopWindow,
     roles: [ROLES.ADMIN, ROLES.SUB_FRANCHISEE, ROLES.MASTER_FRANCHISEE],
   },
+  {
+    label: "Meetings",
+    link: "/meetings",
+    icon: BsShopWindow,
+    roles: [ROLES.TEACHER],
+  },
 ];

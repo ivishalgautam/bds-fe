@@ -8,8 +8,9 @@ import Spinner from "../Spinner";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
 import { MainContext } from "@/store/context";
+import { useQueryClient } from "@tanstack/react-query";
 
-const MeetingForm = () => {
+const MeetingForm = ({ closeMeetingModal }) => {
   const {
     handleSubmit,
     control,
@@ -22,6 +23,7 @@ const MeetingForm = () => {
   const [meetingDetails, setMeetingDetails] = useState();
   const watchMeetingType = watch("meeting_type");
   const { data: batches, isLoading, isError } = useFetchBatchesNames();
+  const queryClient = useQueryClient();
 
   const formatedbatches = batches?.map(({ id: value, batch_name: label }) => {
     return { value, label };
@@ -51,8 +53,10 @@ const MeetingForm = () => {
         window.location.href = res.start_url;
       } else {
         setMeetingDetails(res);
-        setShow(true);
+        // setShow(true);
+        queryClient.invalidateQueries("meetings");
       }
+      closeMeetingModal();
     } catch (error) {
       console.log(error);
     }
@@ -164,7 +168,7 @@ const MeetingForm = () => {
         Submit
       </button>
 
-      {show && (
+      {/* {show && (
         <div>
           <h2>
             <span className="font-bold">Join Url</span> :{" "}
@@ -181,7 +185,7 @@ const MeetingForm = () => {
               .format("DD/MM/YYYY HH:mm A")}
           </h2>
         </div>
-      )}
+      )} */}
     </form>
   );
 };

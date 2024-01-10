@@ -17,8 +17,6 @@ const fetchRecordings = () => {
 
 function Recordings() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [openCreateMeeting, setOpenCreateMeeting] = useState(false);
-
   const [selected, setSelected] = useState(null);
   const { user } = useContext(MainContext);
   const { isLoading, isError, data, error } = useQuery({
@@ -31,16 +29,9 @@ function Recordings() {
     setIsModalOpen(true);
   };
 
-  const openMeetingModal = () => {
-    setOpenCreateMeeting(true);
-  };
-
   // Function to close the modal
   const closeModal = () => {
     setIsModalOpen(false);
-  };
-  const closeMeetingModal = () => {
-    setOpenCreateMeeting(false);
   };
 
   if (isLoading)
@@ -54,15 +45,6 @@ function Recordings() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <Title text="All Recording" />
-
-        {user?.role === "teacher" && (
-          <button
-            className="bg-primary px-6 py-2 rounded-full text-white"
-            onClick={openMeetingModal}
-          >
-            Create Meeting
-          </button>
-        )}
       </div>
 
       <div className="grid grid-cols-2 gap-12">
@@ -107,10 +89,6 @@ function Recordings() {
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <VideoPlayer videoUrl={selected} />
-      </Modal>
-
-      <Modal isOpen={openCreateMeeting} onClose={closeMeetingModal}>
-        <MeetingForm />
       </Modal>
     </div>
   );

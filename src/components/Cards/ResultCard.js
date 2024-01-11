@@ -52,7 +52,9 @@ export default function ResultCard({
             onClick={() => {
               const docs = [
                 {
-                  uri: `${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${file}`,
+                  uri: `${process.env.NEXT_PUBLIC_API_URL}${
+                    endpoints.files.getFiles
+                  }?file_path=${getFileName(file)}`,
                   filename: getFileName(file),
                 },
               ];

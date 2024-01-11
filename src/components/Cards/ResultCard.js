@@ -5,6 +5,7 @@ import { FaRegFilePdf, FaRegUserCircle } from "react-icons/fa";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import Modal from "../Modal";
 import RewardForm from "../Forms/Reward";
+import { endpoints } from "@/utils/endpoints";
 
 export default function ResultCard({
   image,

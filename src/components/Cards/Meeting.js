@@ -30,7 +30,7 @@ export default function MeetingCard({ meeting, handleDelete }) {
           <FiExternalLink className="text-primary" size={20} />
         </a>
       </div>
-      <div className="flex items-center justify-start gap-2">
+      {/* <div className="flex items-center justify-start gap-2">
         <span>Join Url: {trim(meeting.join_url, 20)}</span>
         <CopyToClipboard
           text={meeting.join_url}
@@ -43,7 +43,7 @@ export default function MeetingCard({ meeting, handleDelete }) {
             <FaRegCopy className="text-primary" size={20} />
           </button>
         </CopyToClipboard>
-      </div>
+      </div> */}
       <div>Start time: {new Date(meeting.start_time).toUTCString()}</div>
     </div>
   );

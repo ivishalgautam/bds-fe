@@ -21,7 +21,20 @@ export default function PPT() {
     ];
 
     setDocs(docs);
+
+    document.addEventListener("keydown", navigate);
   }, [pptUrl]);
+
+  function navigate(e) {
+    const key = e.key;
+    if (key === "ArrowLeft") {
+      document.querySelector("#pdf-pagination-prev").click();
+    }
+
+    if (key === "ArrowRight") {
+      document.querySelector("#pdf-pagination-next").click();
+    }
+  }
 
   function requestFullscreen(element, state) {
     if (state === "fullscreen") {

@@ -44,9 +44,9 @@ const Layout = ({ children }) => {
   return (
     <div className="relative overflow-x-hidden">
       <Navbar />
-      <div className="flex">
+      <div className="flex h-full">
         <Sidebar />
-        <div className="overflow-scroll scrollbar-hide w-full p-8 max-h-[calc(100vh-80px)] bg-gray-100">
+        <div className="overflow-scroll scrollbar-hide w-full p-8 h-full bg-gray-100">
           <main>{children}</main>
         </div>
       </div>

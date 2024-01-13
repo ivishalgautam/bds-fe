@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import CopyToClipboard from "react-copy-to-clipboard";
-import toast from "react-hot-toast";
-import { FaRegCopy } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 
@@ -30,20 +27,7 @@ export default function MeetingCard({ meeting, handleDelete }) {
           <FiExternalLink className="text-primary" size={20} />
         </a>
       </div>
-      {/* <div className="flex items-center justify-start gap-2">
-        <span>Join Url: {trim(meeting.join_url, 20)}</span>
-        <CopyToClipboard
-          text={meeting.join_url}
-          onCopy={() => {
-            setState((prev) => ({ ...prev, copied: true }));
-            toast.success("Copied");
-          }}
-        >
-          <button className="text-sm">
-            <FaRegCopy className="text-primary" size={20} />
-          </button>
-        </CopyToClipboard>
-      </div> */}
+
       <div>Start time: {new Date(meeting.start_time).toUTCString()}</div>
     </div>
   );

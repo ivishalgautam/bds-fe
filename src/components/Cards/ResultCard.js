@@ -15,6 +15,7 @@ export default function ResultCard({
   setOpenDocViewer,
   studentId,
   completed,
+  type,
 }) {
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const [displayFallbackImg, setDisplayFallbackImg] = useState(false);
@@ -48,23 +49,33 @@ export default function ResultCard({
           Name: <span className="font-medium">{studentName}</span>
         </h2>
         {file && (
-          <div
-            className="bg-gray-100 hover:bg-gray-200 transition-colors rounded-md p-1.5 inline-block border border-dashed border-primary cursor-pointer"
-            onClick={() => {
-              const docs = [
-                {
-                  uri: `${process.env.NEXT_PUBLIC_API_URL}${
-                    endpoints.files.getFiles
-                  }?file_path=${getFileName(file)}`,
-                  filename: getFileName(file),
-                },
-              ];
-              setDocs(docs);
-              setOpenDocViewer(true);
-            }}
-          >
+          <div className="bg-gray-100 hover:bg-gray-200 transition-colors rounded-md p-1.5 inline-block border border-dashed border-primary cursor-pointer">
             {/* <span>View file</span> */}
-            <FaRegFilePdf size={25} className="text-primary inline-block" />
+            {type === "project" ? (
+              <a
+                href={`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/${file}`}
+                download
+              >
+                <FaRegFilePdf size={25} className="text-primary inline-block" />
+              </a>
+            ) : (
+              <FaRegFilePdf
+                size={25}
+                className="text-primary inline-block"
+                onClick={() => {
+                  const docs = [
+                    {
+                      uri: `${process.env.NEXT_PUBLIC_API_URL}${
+                        endpoints.files.getFiles
+                      }?file_path=${getFileName(file)}`,
+                      filename: getFileName(file),
+                    },
+                  ];
+                  setDocs(docs);
+                  setOpenDocViewer(true);
+                }}
+              />
+            )}
           </div>
         )}
       </div>

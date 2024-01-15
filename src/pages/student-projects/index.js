@@ -176,6 +176,7 @@ export default function StudentProjects() {
                 setOpenDocViewer={setOpenDocViewer}
                 studentId={project.student_id}
                 completed={true}
+                type={"project"}
               />
             ))}
           </div>

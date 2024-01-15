@@ -107,6 +107,7 @@ export default function UploadProjecct() {
             id="file"
             className="hidden"
             onChange={handleFileUpload}
+            accept=".mblock"
           />
         </label>
 

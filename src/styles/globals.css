@@ -86,3 +86,7 @@
 #ChromelessStatusBar.RightDock {
   display: none !important;
 }
+
+#pdf-toggle-pagination {
+  display: none;
+}

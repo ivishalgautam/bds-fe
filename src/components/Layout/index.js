@@ -42,11 +42,11 @@ const Layout = ({ children }) => {
   const { pathname } = router;
 
   return (
-    <div className="relative overflow-x-hidden">
+    <div className="relative overflow-hidden h-screen">
       <Navbar />
       <div className="flex h-full">
         <Sidebar />
-        <div className="overflow-scroll scrollbar-hide w-full p-8 min-h-screen bg-gray-100">
+        <div className="overflow-scroll w-full p-8 h-full bg-gray-100">
           <main>{children}</main>
         </div>
       </div>

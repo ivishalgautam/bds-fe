@@ -53,7 +53,6 @@ export default function Shop() {
     );
 
   if (isError) return <h2>{error?.message}</h2>;
-  console.log(data);
   return (
     <div className="space-y-6">
       <Title text="Shop" />

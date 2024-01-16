@@ -90,6 +90,7 @@ export default function ResultCard({
           <HiOutlineDotsVertical size={20} />
         </button>
       )}
+
       <ul
         className={`${
           isDropdownActive ? "block" : "hidden"

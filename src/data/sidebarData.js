@@ -415,6 +415,12 @@ export const AllRoutes = [
     roles: [ROLES.ADMIN, ROLES.SUB_FRANCHISEE, ROLES.MASTER_FRANCHISEE],
   },
   {
+    label: "Product enquiries",
+    link: "/product-enquiries",
+    icon: BsShopWindow,
+    roles: [ROLES.ADMIN],
+  },
+  {
     label: "Meetings",
     link: "/meetings",
     icon: BsShopWindow,

@@ -5,14 +5,14 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import React from "react";
 
-async function fetchCourseEnquiries() {
-  return await http().get(`${endpoints.courses.getAll}/enquiry`);
+async function fetchProductEnquiries() {
+  return await http().get(`${endpoints.products.getAll}/enquiry`);
 }
 
-export default function CourseEnquiries() {
+export default function ProductEnquiries() {
   const { data, isLoading } = useQuery({
-    queryKey: ["course-enquiries"],
-    queryFn: fetchCourseEnquiries,
+    queryKey: ["product-enquiries"],
+    queryFn: fetchProductEnquiries,
   });
 
   if (isLoading) {
@@ -22,6 +22,7 @@ export default function CourseEnquiries() {
       </div>
     );
   }
+
   return (
     <div
       className="relative shadow-md sm:rounded-lg"
@@ -31,7 +32,7 @@ export default function CourseEnquiries() {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">
-              Course Name
+              Product Name
             </th>
             <th scope="col" className="px-6 py-3">
               Enquiry by (username)
@@ -42,19 +43,16 @@ export default function CourseEnquiries() {
             <th scope="col" className="px-6 py-3">
               Enquiry by (phone)
             </th>
-            {/* <th scope="col" className="px-6 py-3">
-              Status
-            </th> */}
             <th scope="col" className="px-6 py-3">
               Enquiry date
             </th>
           </tr>
         </thead>
-        {data?.length <= 0 ? (
-          <div className="p-4 w-full text-black">No enquiries found!</div>
-        ) : (
-          <tbody>
-            {data?.map((item, index) => (
+        <tbody>
+          {data?.length <= 0 ? (
+            <div className="p-4 w-full text-black">No enquiries found!</div>
+          ) : (
+            data?.map((item, index) => (
               <tr
                 className="bg-white dark:border-gray-700"
                 key={`${index}${item.id}`}
@@ -63,23 +61,20 @@ export default function CourseEnquiries() {
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-700 whitespace-nowrap"
                 >
-                  {item.course_name}
+                  {item.title}
                 </th>
                 <td className="px-6 py-4 text-gray-700">{item.username}</td>
                 <td className="px-6 py-4 text-gray-700">{item.email}</td>
                 <td className="px-6 py-4 text-gray-700">
                   {item.mobile_number}
                 </td>
-                {/* <td className="px-6 py-4 text-gray-700">
-                {item.is_assigned === true ? "Assigned" : "Not assigned"}
-              </td> */}
                 <td className="px-6 py-4 text-gray-700">
                   {moment(item.created_at).format("DD-MM-YYYY")}
                 </td>
               </tr>
-            ))}
-          </tbody>
-        )}
+            ))
+          )}
+        </tbody>
       </table>
     </div>
   );

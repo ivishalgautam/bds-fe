@@ -105,8 +105,3 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-primary rounded;
 }
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}

@@ -44,7 +44,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-80 h-full bg-white shadow-md">
+    <div className="w-80 h-full bg-white">
       <ul className="p-4 font-mulish font-bold text-base space-y-4">
         {sidebarData?.map((item) => (
           <li key={item.label}>

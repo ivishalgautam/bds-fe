@@ -45,7 +45,7 @@ export default function Sidebar() {
 
   return (
     <div className="w-80 h-full overflow-y-scroll bg-white">
-      <ul className="p-4 font-mulish font-bold text-base space-y-4">
+      <ul className="p-4 pb-10 font-mulish font-bold text-base space-y-4">
         {sidebarData?.map((item) => (
           <li key={item.label}>
             <Link href={item.link}>

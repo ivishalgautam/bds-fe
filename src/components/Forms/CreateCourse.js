@@ -141,6 +141,7 @@ export default function CreateCourse({ id, type, handleUpdate }) {
   };
 
   const deleteDay = (weekIndex, dayIndex) => {
+    console.log({ weekIndex, dayIndex });
     setCourseSyllabus((prevCourseSyllabus) => {
       const updatedCourseSyllabus = [...prevCourseSyllabus];
       updatedCourseSyllabus[weekIndex].day_wise.splice(dayIndex, 1);
@@ -250,7 +251,7 @@ export default function CreateCourse({ id, type, handleUpdate }) {
                   min={1}
                   max={52}
                   disabled={type === "view"}
-                  placeholder="Duration"
+                  placeholder="Duration in weeks"
                   className="w-full px-4 py-3 border outline-none rounded-md bg-[#F7F7FC] font-mulish text-xl font-semibold"
                   {...register("duration", { required: true, min: 1, max: 52 })}
                 />

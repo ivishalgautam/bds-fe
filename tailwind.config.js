@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         primary: "#5542D7",
+        "primary-extra-light": "#e1dcff",
         slate500: "#64748b",
       },
     },

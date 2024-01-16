@@ -60,6 +60,7 @@ export default function MileStones({ rewards, levels }) {
       description: "20. Object-oriented Programming on Dart",
     },
   ];
+
   const swiperRef = useRef(null);
 
   const handleSlide = (direction) => {

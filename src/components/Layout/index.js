@@ -46,7 +46,7 @@ const Layout = ({ children }) => {
       <Navbar />
       <div className="flex h-full">
         <Sidebar />
-        <div className="overflow-scroll w-full p-8 h-full bg-gray-100">
+        <div className="overflow-scroll w-full p-8 pb-20 h-full bg-gray-100">
           <main>{children}</main>
         </div>
       </div>

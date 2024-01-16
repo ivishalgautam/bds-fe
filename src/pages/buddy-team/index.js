@@ -15,8 +15,17 @@ import Spinner from "@/components/Spinner";
 import { useFetchStudents } from "@/hooks/useFetchStudents";
 import { toast } from "react-hot-toast";
 import { useFetchGroups } from "@/hooks/useFetchGroups";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { FaLock } from "react-icons/fa";
+import axios from "axios";
+
+const deleteGroupById = async ({ id }) => {
+  console.log({ id });
+  return await http().delete(
+    `${process.env.NEXT_PUBLIC_API_URL}${endpoints.groups.getAll}/${id}`
+  );
+};
 
 function BuddyTeam() {
   const [selectedIds, setSelectedIds] = useState([]);
@@ -37,12 +46,27 @@ function BuddyTeam() {
 
   // Handle checkbox change
   const handleCheckboxChange = (id) => {
+    if (selectedIds.length === 4) {
+      return toast.error("You cannot select more than 4 member");
+    }
+
     if (selectedIds.includes(id)) {
       setSelectedIds(selectedIds.filter((selectedId) => selectedId !== id)); // Remove ID
     } else {
       setSelectedIds([...selectedIds, id]); // Add ID
     }
   };
+
+  const { mutate: deleteMutaion } = useMutation((id) => deleteGroupById(id), {
+    onSuccess: () => {
+      toast.success("Group deleted");
+      queryClient.invalidateQueries("fetchGroups");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.delete("Error deleting group!");
+    },
+  });
 
   const onSubmit = async (data) => {
     const payload = {
@@ -61,6 +85,7 @@ function BuddyTeam() {
       );
       queryClient.invalidateQueries("fetchGroups");
       toast.success(response.message);
+      setSelectedIds([]);
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -103,6 +128,15 @@ function BuddyTeam() {
   ];
 
   const filteredGroups = groups?.filter((g) => g.is_community === false);
+
+  const handleGroupDelete = async (id) => {
+    const confirmation = confirm("Are you sure you want to delete this group?");
+    if (!confirmation) {
+      return;
+    }
+
+    deleteMutaion({ id });
+  };
 
   if (isLoading)
     return (
@@ -174,6 +208,7 @@ function BuddyTeam() {
         </div>
       )}
 
+      {/* buddy teams */}
       <div className="px-8 space-y-8 rounded-xl">
         <Title text="Your groups" />
         <div className="grid grid-cols-4 gap-8">
@@ -181,40 +216,55 @@ function BuddyTeam() {
             <p className="text-center">You have no group</p>
           ) : (
             filteredGroups?.map((item, index) => (
-              <Link key={index} href={`/buddy-team/${item.id}`}>
-                <div
-                  className={`bg-white p-8 rounded-xl space-y-2 relative border-2 `}
-                >
-                  <div className="flex">
-                    <img
-                      src={item.group_image}
-                      alt=""
-                      className="w-24 h-24 mx-auto rounded-full shadow-md"
-                    />
+              <div key={index} className="relative">
+                <Link href={`/buddy-team/${item.id}`}>
+                  <div
+                    className={`bg-white p-8 rounded-xl space-y-2 relative border-2 `}
+                  >
+                    <div className="flex">
+                      <img
+                        src={item.group_image}
+                        alt=""
+                        className="w-24 h-24 mx-auto rounded-full shadow-md"
+                      />
+                    </div>
+                    <h3 className="font-bold text-center">{item.group_name}</h3>
                   </div>
-                  <h3 className="font-bold text-center">{item.group_name}</h3>
-                </div>
-              </Link>
+                </Link>
+
+                {user?.id === item.group_admin?.[0] && (
+                  <div
+                    style={{ background: "#F04461" }}
+                    className="cursor-pointer absolute -top-2 -right-2 z-10 p-3 shadow rounded-full border-2 border-white"
+                    onClick={() => handleGroupDelete(item.id)}
+                  >
+                    <FaLock size={20} fill="#fff" />
+                  </div>
+                )}
+              </div>
             ))
           )}
         </div>
       </div>
 
+      {/* students */}
       {user?.role === "student" && (
         <div className="px-8 space-y-8 rounded-xl">
-          <Title text="Select Batchmates to Join ( 3/5 )" />
+          <Title
+            text={`Select Batchmates to Join ( ${selectedIds.length}/4 )`}
+          />
           <div className="grid grid-cols-4 gap-8">
             {students?.map((item, index) => (
               <div
                 key={index}
-                className={`bg-white p-8 rounded-xl space-y-2 relative border-2 ${
+                className={`bg-white p-8 rounded-xl space-y-2 relative border-2 cursor-pointer ${
                   selectedIds.includes(item.user_id)
                     ? " border-primary"
                     : "border-white"
                 }`}
               >
                 <div className="flex">
-                  <label className="absolute w-full h-full opacity-0">
+                  <label className="absolute w-full h-full opacity-0 cursor-pointer">
                     <input
                       type="checkbox"
                       className="form-checkbox w-5 h-5 text-primary rounded focus:ring-primary focus:ring-2 "
@@ -230,10 +280,6 @@ function BuddyTeam() {
                 </div>
                 <h3 className="font-bold text-center">{item.title}</h3>
                 <p className="text-center">{item.username}</p>
-                {/* <p className="text-center">
-                Earned Points :{" "}
-                <span className="text-yellow-400">{item.points}</span>
-              </p> */}
               </div>
             ))}
           </div>

@@ -105,3 +105,8 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-primary rounded;
 }
+
+/* swiper */
+.swiper-slide {
+  padding-right: 0.4rem;
+}

@@ -152,6 +152,11 @@ export default function Calender({
                         !isEqual(day, selectedDay) && "hover:bg-gray-200",
                         (isEqual(day, selectedDay) || isToday(day)) &&
                           "font-semibold",
+                        meetings?.some((meeting) =>
+                          isSameDay(parseISO(meeting.start_time), day)
+                        ) &&
+                          !isEqual(day, selectedDay) &&
+                          "bg-primary-extra-light",
                         "mx-auto flex h-8 w-8 items-center justify-center rounded-full"
                       )}
                     >
@@ -159,14 +164,6 @@ export default function Calender({
                         {format(day, "d")}
                       </time>
                     </button>
-
-                    <div className="w-1 h-1 mx-auto mt-1">
-                      {meetings?.some((meeting) =>
-                        isSameDay(parseISO(meeting.start_time), day)
-                      ) && (
-                        <div className="w-1 h-1 rounded-full bg-sky-500"></div>
-                      )}
-                    </div>
                   </div>
                 ))}
               </div>

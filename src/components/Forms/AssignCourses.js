@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Title from "../Title";
 import http from "../../utils/http";
 import { endpoints } from "../../utils/endpoints";
 import Select from "react-select";
-import Image from "next/image";
 import { useFetchUsers } from "@/hooks/useFetchUseres";
-import { data } from "autoprefixer";
 
 const AssignCourseForm = ({
   handleCreate,

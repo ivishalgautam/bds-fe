@@ -43,8 +43,6 @@ const CourseAccordion = ({
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  console.log({ quizs });
-
   function getQuiz(weeks) {
     return quizs?.filter((quiz) => quiz.weeks === weeks);
   }
@@ -227,7 +225,7 @@ const CourseAccordion = ({
                               ).length === 0 ? null : getMyHomework(
                                 item.weeks,
                                 day.days
-                              ).length > 0 ? (
+                              )?.length > 0 ? (
                               user?.role === "student" ? (
                                 <div className="relative">
                                   <AiFillCloseCircle

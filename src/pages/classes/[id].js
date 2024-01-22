@@ -20,10 +20,6 @@ const updateItem = async (updatedItem) => {
   await http().put(`${endpoints.batch.getAll}/${updatedItem.id}`, updatedItem);
 };
 
-const fetchHomeworks = () => {
-  return http().get(`${endpoints.homeworks.getAll}`);
-};
-
 const fetchUploadedHomeworks = async () => {
   return await http().get(endpoints.homeworks.myHomeworks);
 };
@@ -43,6 +39,10 @@ export default function Classes() {
   const router = useRouter();
   const { id } = router.query;
 
+  const fetchHomeworks = () => {
+    return http().get(`${endpoints.homeworks.getAll}/getByCourseId/${id}`);
+  };
+
   const fetchQuizes = async () => {
     return await http().get(
       `${endpoints.quiz.getAll}/course/${batches?.[0]?.course_id}`
@@ -57,7 +57,10 @@ export default function Classes() {
   const { data: homeworks } = useQuery({
     queryKey: ["fetchHomework"],
     queryFn: fetchHomeworks,
+    enabled: !!id,
   });
+
+  console.log({ homeworks });
 
   const { data: myHomeworks } = useQuery({
     queryKey: ["fetchMyHomeworks"],

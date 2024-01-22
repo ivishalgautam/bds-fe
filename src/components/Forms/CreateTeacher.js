@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import Title from "../Title";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
@@ -13,6 +13,7 @@ import moment from "moment";
 import Modal from "@/components/Modal";
 import DocViewerApp from "@/components/DocViewerApp";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
+import Select from "react-select";
 
 function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
   const {
@@ -21,6 +22,7 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
     setValue,
     reset,
     watch,
+    control,
     formState: { errors },
   } = useForm();
   const [userError, setUserError] = useState("");
@@ -149,6 +151,10 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
     }
   };
   const maxDate = moment().format("YYYY-MM-DD");
+  const studentTypeData = [
+    { value: true, label: "Yes" },
+    { value: false, label: "No" },
+  ];
 
   useEffect(() => {
     // Fetch data from API and populate the form with prefilled values
@@ -156,6 +162,7 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
     const fetchData = async () => {
       try {
         const data = await http().get(`${endpoints.createUser}/${id}`);
+        console.log({ data });
         const dob = moment(data.birth_date).format("YYYY-MM-DD");
         setValue("username", data.username);
         setValue("first_name", data.first_name);
@@ -165,6 +172,10 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
         setValue("mobile_number", data.mobile_number);
         setValue("profession", data.profession);
         setValue("address", data.address);
+        setValue(
+          "is_online",
+          studentTypeData.find((so) => so.value === data.is_online)
+        );
         setFeatured(data.image_url);
         setDocuments(data.document_url);
       } catch (error) {
@@ -190,6 +201,7 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
       address: data.address,
       first_name: data.first_name,
       last_name: data.last_name,
+      is_online: data.is_online.value,
     };
 
     if (userError) return;
@@ -392,6 +404,33 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
               <span className="text-red-600">
                 {errors.mobile_number.message}
               </span>
+            )}
+          </div>
+
+          {/* is online or offline */}
+          <div>
+            <Controller
+              control={control}
+              name="is_online"
+              maxMenuHeight={230}
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  options={studentTypeData}
+                  placeholder="Will attend online"
+                  isDisabled={type === "view"}
+                  className="w-full h-[42px] outline-none rounded-md bg-[#F7F7FC] font-mulish text-xl font-semibold"
+                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                  menuPortalTarget={
+                    typeof document !== "undefined" && document.body
+                  }
+                  menuPosition="absolute"
+                />
+              )}
+            />
+            {errors.status && (
+              <p className="text-red-600">{errors.status.message}</p>
             )}
           </div>
         </div>

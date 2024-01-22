@@ -51,7 +51,6 @@ const CourseAccordion = ({
     const data = homeworks[0]?.homework
       ?.filter((h) => h.weeks === week)[0]
       .day_wise.filter((homework) => homework.days === day);
-
     return data;
   };
 
@@ -259,18 +258,20 @@ const CourseAccordion = ({
                                 </div>
                               ) : null
                             ) : (
-                              <Link
-                                href={`/homework/upload/${homeworks[0].course_id}/${batchId}/${item.weeks}/${day.days}`}
-                                className={`flex items-center justify-center flex-col`}
-                              >
-                                <MdOutlineDriveFolderUpload
-                                  size={25}
-                                  className="text-primary"
-                                />
-                                <p className="font-semibold text-xs text-center">
-                                  Upload <br /> homework
-                                </p>
-                              </Link>
+                              day.is_completed && (
+                                <Link
+                                  href={`/homework/upload/${homeworks[0].course_id}/${batchId}/${item.weeks}/${day.days}`}
+                                  className={`flex items-center justify-center flex-col`}
+                                >
+                                  <MdOutlineDriveFolderUpload
+                                    size={25}
+                                    className="text-primary"
+                                  />
+                                  <p className="font-semibold text-xs text-center">
+                                    Upload <br /> homework
+                                  </p>
+                                </Link>
+                              )
                             )}
                             {user?.role === "teacher" ? (
                               <div

@@ -3,6 +3,7 @@ import MeetingForm from "@/components/Forms/MeetingForm";
 import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import Title from "@/components/Title";
+import { AllRoutes } from "@/data/sidebarData";
 import { MainContext } from "@/store/context";
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
@@ -11,6 +12,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import Router from "next/router";
 
 const fetchMeetings = async () => {
   return http().get(endpoints.meeting);
@@ -20,6 +22,10 @@ export default function Meetings() {
   const [accessToken] = useLocalStorage("token");
   const { user } = useContext(MainContext);
   const [openCreateMeeting, setOpenCreateMeeting] = useState(false);
+
+  if (user?.role === "teacher" && user?.is_online === false) {
+    Router.push("/unauthorized");
+  }
 
   const { data, isLoading } = useQuery({
     queryKey: ["meetings"],
@@ -50,8 +56,6 @@ export default function Meetings() {
   const closeMeetingModal = () => {
     setOpenCreateMeeting(false);
   };
-
-  console.log({ data });
 
   if (isLoading) {
     return (

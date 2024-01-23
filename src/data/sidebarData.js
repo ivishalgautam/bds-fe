@@ -400,7 +400,7 @@ export const AllRoutes = [
     label: "Buddy Team",
     link: "/buddy-team",
     icon: BsShopWindow,
-    roles: [ROLES.STUDENT, ROLES.TEACHER],
+    roles: [ROLES.STUDENT],
   },
   {
     label: "Buddy Team",

@@ -11,7 +11,7 @@ export default function Sidebar() {
 
   const userRole = user?.role;
 
-  const filteredMenu = AllRoutes.filter(
+  let filteredMenu = AllRoutes.filter(
     (item) =>
       !item.link.includes("/edit") &&
       !item.link.includes("/create") &&
@@ -23,6 +23,12 @@ export default function Sidebar() {
       !item.link.includes("/batches/quiz") &&
       !item.link.includes("/presentation")
   );
+
+  if (userRole === "teacher" && user?.is_online === false) {
+    filteredMenu = filteredMenu.filter(
+      (item) => !item.link.includes("meetings")
+    );
+  }
 
   // Determine the appropriate sidebar data based on the user's role
   let sidebarData = filteredMenu.filter((route) => {

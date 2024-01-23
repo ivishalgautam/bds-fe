@@ -49,14 +49,15 @@ const MeetingForm = ({ closeMeetingModal }) => {
     try {
       const res = await http().post(endpoints.meeting, payload);
       // console.log(res);
-      if (res.type === 1) {
-        //redirect user to start url
-        window.location.href = res.start_url;
-      } else {
-        setMeetingDetails(res);
-        // setShow(true);
-        queryClient.invalidateQueries("meetings");
-      }
+      // if (res.type === 1) {
+      //   //redirect user to start url
+      //   window.location.href = res.start_url;
+      // } else {
+      //   setMeetingDetails(res);
+      //   // setShow(true);
+      //   queryClient.invalidateQueries("meetings");
+      // }
+      queryClient.invalidateQueries("meetings");
 
       closeMeetingModal();
     } catch (error) {

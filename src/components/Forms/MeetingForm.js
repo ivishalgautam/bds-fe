@@ -55,7 +55,7 @@ const MeetingForm = ({ closeMeetingModal }) => {
       // } else {
       //   setMeetingDetails(res);
       //   // setShow(true);
-      //   queryClient.invalidateQueries("meetings");
+      // queryClient.invalidateQueries("meetings");
       // }
       queryClient.invalidateQueries("meetings");
 

@@ -3,7 +3,6 @@ import MeetingForm from "@/components/Forms/MeetingForm";
 import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import Title from "@/components/Title";
-import { AllRoutes } from "@/data/sidebarData";
 import { MainContext } from "@/store/context";
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";

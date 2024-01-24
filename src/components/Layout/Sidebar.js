@@ -26,7 +26,8 @@ export default function Sidebar() {
 
   if (userRole === "teacher" && user?.is_online === false) {
     filteredMenu = filteredMenu.filter(
-      (item) => !item.link.includes("meetings")
+      (item) =>
+        !item.link.includes("meetings") && !item.link.includes("recordings")
     );
   }
 

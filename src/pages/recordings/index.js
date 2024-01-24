@@ -9,7 +9,7 @@ import Modal from "@/components/Modal";
 import VideoPlayer from "@/components/VideoPlayer";
 import { MainContext } from "@/store/context";
 import { AiOutlinePlus } from "react-icons/ai";
-import MeetingForm from "@/components/Forms/MeetingForm";
+import Router from "next/router";
 
 const fetchRecordings = () => {
   return http().get(endpoints.recordings.getAll);
@@ -19,6 +19,11 @@ function Recordings() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const { user } = useContext(MainContext);
+
+  if (user?.role === "teacher" && user?.is_online === false) {
+    Router.push("/unauthorized");
+  }
+
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["recordings"],
     queryFn: fetchRecordings,

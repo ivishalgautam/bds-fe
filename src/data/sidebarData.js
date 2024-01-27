@@ -10,7 +10,11 @@ import {
 import { AiFillFile, AiFillSchedule, AiOutlineShop } from "react-icons/ai";
 import {
   FaChalkboardTeacher,
+  FaFileAlt,
+  FaFileCode,
   FaHeadphones,
+  FaListAlt,
+  FaMedal,
   FaRobot,
   FaShoppingCart,
   FaUserCheck,
@@ -18,7 +22,11 @@ import {
 import { FaUsersLine } from "react-icons/fa6";
 import { BsFillQuestionSquareFill, BsShopWindow } from "react-icons/bs";
 import { SiGoogleads, SiLevelsdotfyi } from "react-icons/si";
-import { RiComputerFill, RiPresentationFill } from "react-icons/ri";
+import {
+  RiComputerFill,
+  RiPresentationFill,
+  RiQuestionnaireFill,
+} from "react-icons/ri";
 import { PiStudentBold } from "react-icons/pi";
 import { GiTeacher } from "react-icons/gi";
 import { GrProjects } from "react-icons/gr";
@@ -98,7 +106,7 @@ export const AllRoutes = [
   {
     label: "Levels",
     link: "/levels",
-    icon: SiLevelsdotfyi,
+    icon: FaMedal,
     roles: [ROLES.ADMIN],
   },
   {
@@ -265,7 +273,7 @@ export const AllRoutes = [
   {
     label: "Homework",
     link: "/homework",
-    icon: MdHomeWork,
+    icon: FaFileAlt,
     roles: [ROLES.ADMIN],
   },
   {
@@ -301,7 +309,7 @@ export const AllRoutes = [
   {
     label: "Student Projects",
     link: "/student-projects",
-    icon: GrProjects,
+    icon: FaFileCode,
     roles: [ROLES.TEACHER],
   },
   {
@@ -426,13 +434,13 @@ export const AllRoutes = [
   {
     label: "Course enquiries",
     link: "/course-enquiries",
-    icon: BsFillQuestionSquareFill,
+    icon: RiQuestionnaireFill,
     roles: [ROLES.ADMIN, ROLES.SUB_FRANCHISEE, ROLES.MASTER_FRANCHISEE],
   },
   {
     label: "Product enquiries",
     link: "/product-enquiries",
-    icon: BsFillQuestionSquareFill,
+    icon: RiQuestionnaireFill,
     roles: [ROLES.ADMIN],
   },
   {
@@ -444,19 +452,19 @@ export const AllRoutes = [
   {
     label: "Leads",
     link: "/leads",
-    icon: SiGoogleads,
+    icon: FaListAlt,
     roles: [ROLES.SUB_FRANCHISEE, ROLES.ADMIN],
   },
   {
     label: "Leads",
     link: "/leads/create",
-    icon: SiGoogleads,
+    icon: FaListAlt,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Leads",
     link: "/leads/edit",
-    icon: SiGoogleads,
+    icon: FaListAlt,
     roles: [ROLES.SUB_FRANCHISEE],
   },
 ];

@@ -4,10 +4,25 @@ import {
   MdSpeakerNotes,
   MdQuiz,
   MdAnnouncement,
+  MdClass,
+  MdHomeWork,
 } from "react-icons/md";
-import { AiOutlineShop } from "react-icons/ai";
-import { FaHeadphones } from "react-icons/fa";
-import { BsShopWindow } from "react-icons/bs";
+import { AiFillFile, AiFillSchedule, AiOutlineShop } from "react-icons/ai";
+import {
+  FaChalkboardTeacher,
+  FaHeadphones,
+  FaRobot,
+  FaShoppingCart,
+  FaUserCheck,
+  FaUsersLine,
+} from "react-icons/fa";
+import { BsFillQuestionSquareFill, BsShopWindow } from "react-icons/bs";
+import { SiGoogleads, SiLevelsdotfyi } from "react-icons/si";
+import { RiComputerFill, RiPresentationFill } from "react-icons/ri";
+import { PiStudentBold } from "react-icons/pi";
+import { GiTeacher } from "react-icons/gi";
+import { GrProjects } from "react-icons/gr";
+import { HiUsers } from "react-icons/hi";
 
 // Define the roles for each user type
 const ROLES = {
@@ -83,25 +98,25 @@ export const AllRoutes = [
   {
     label: "Levels",
     link: "/levels",
-    icon: AiOutlineShop,
+    icon: SiLevelsdotfyi,
     roles: [ROLES.ADMIN],
   },
   {
     label: "Levels",
     link: "/levels/create",
-    icon: AiOutlineShop,
+    icon: SiLevelsdotfyi,
     roles: [ROLES.ADMIN],
   },
   {
     label: "Levels",
     link: "/levels/[id]",
-    icon: AiOutlineShop,
+    icon: SiLevelsdotfyi,
     roles: [ROLES.ADMIN],
   },
   {
     label: "Levels",
     link: "/levels/edit/[id]",
-    icon: AiOutlineShop,
+    icon: SiLevelsdotfyi,
     roles: [ROLES.ADMIN],
   },
   {
@@ -148,91 +163,91 @@ export const AllRoutes = [
   {
     label: "Courses Assign",
     link: "/assign-courses",
-    icon: MdBook,
+    icon: FaUserCheck,
     roles: [ROLES.ADMIN, ROLES.MASTER_FRANCHISEE, ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Classes",
     link: "/classes",
-    icon: MdBook,
+    icon: MdClass,
     roles: [ROLES.STUDENT, ROLES.TEACHER],
   },
   {
     label: "Classes",
     link: "/classes/[id]",
-    icon: MdBook,
+    icon: MdClass,
     roles: [ROLES.STUDENT, ROLES.TEACHER],
   },
   {
     label: "Classes",
     link: "/classes/chat/[id]",
-    icon: MdBook,
+    icon: MdClass,
     roles: [ROLES.STUDENT, ROLES.TEACHER],
   },
   {
     label: "Presentation",
     link: "/presentation",
-    icon: MdBook,
+    icon: RiPresentationFill,
     roles: [ROLES.STUDENT, ROLES.TEACHER],
   },
   {
     label: "Schedules",
     link: "/schedules",
-    icon: MdBook,
+    icon: AiFillSchedule,
     roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Teachers",
     link: "/teachers",
-    icon: MdBook,
+    icon: FaChalkboardTeacher,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Teachers",
     link: "/teachers/create",
-    icon: MdBook,
+    icon: FaChalkboardTeacher,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Teachers",
     link: "/teachers/edit/[id]",
-    icon: MdBook,
+    icon: FaChalkboardTeacher,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Teachers",
     link: "/teachers/[id]",
-    icon: MdBook,
+    icon: FaChalkboardTeacher,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Students",
     link: "/students",
-    icon: MdBook,
+    icon: PiStudentBold,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Students",
     link: "/students/create",
-    icon: MdBook,
+    icon: PiStudentBold,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Students",
     link: "/students/[id]",
-    icon: MdBook,
+    icon: PiStudentBold,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Students",
     link: "/students/edit/[id]",
-    icon: MdBook,
+    icon: PiStudentBold,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Batches",
     link: "/batches",
-    icon: MdBook,
+    icon: GiTeacher,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
@@ -244,13 +259,13 @@ export const AllRoutes = [
   {
     label: "Result",
     link: "/results",
-    icon: MdBook,
+    icon: AiFillFile,
     roles: [ROLES.STUDENT, ROLES.TEACHER],
   },
   {
     label: "Homework",
     link: "/homework",
-    icon: MdSpeakerNotes,
+    icon: MdHomeWork,
     roles: [ROLES.ADMIN],
   },
   {
@@ -280,19 +295,19 @@ export const AllRoutes = [
   {
     label: "Student Homeworks",
     link: "/student-homeworks",
-    icon: MdSpeakerNotes,
+    icon: MdHomeWork,
     roles: [ROLES.TEACHER],
   },
   {
     label: "Student Projects",
     link: "/student-projects",
-    icon: MdSpeakerNotes,
+    icon: GrProjects,
     roles: [ROLES.TEACHER],
   },
   {
     label: "Projects",
     link: "/projects",
-    icon: MdSpeakerNotes,
+    icon: GrProjects,
     roles: [ROLES.ADMIN],
   },
   {
@@ -358,7 +373,7 @@ export const AllRoutes = [
   {
     label: "My Recordings",
     link: "/recordings",
-    icon: FaHeadphones,
+    icon: RiComputerFill,
     roles: [ROLES.TEACHER, ROLES.STUDENT],
   },
   {
@@ -370,13 +385,13 @@ export const AllRoutes = [
   {
     label: "Products",
     link: "/products",
-    icon: BsShopWindow,
+    icon: FaRobot,
     roles: [ROLES.ADMIN],
   },
   {
     label: "Shop",
     link: "/shop",
-    icon: BsShopWindow,
+    icon: FaShoppingCart,
     roles: [
       ROLES.MASTER_FRANCHISEE,
       ROLES.SUB_FRANCHISEE,
@@ -399,7 +414,7 @@ export const AllRoutes = [
   {
     label: "Buddy Team",
     link: "/buddy-team",
-    icon: BsShopWindow,
+    icon: HiUsers,
     roles: [ROLES.STUDENT],
   },
   {
@@ -411,37 +426,37 @@ export const AllRoutes = [
   {
     label: "Course enquiries",
     link: "/course-enquiries",
-    icon: BsShopWindow,
+    icon: BsFillQuestionSquareFill,
     roles: [ROLES.ADMIN, ROLES.SUB_FRANCHISEE, ROLES.MASTER_FRANCHISEE],
   },
   {
     label: "Product enquiries",
     link: "/product-enquiries",
-    icon: BsShopWindow,
+    icon: BsFillQuestionSquareFill,
     roles: [ROLES.ADMIN],
   },
   {
     label: "Meetings",
     link: "/meetings",
-    icon: BsShopWindow,
+    icon: FaUsersLine,
     roles: [ROLES.TEACHER],
   },
   {
     label: "Leads",
     link: "/leads",
-    icon: BsShopWindow,
+    icon: SiGoogleads,
     roles: [ROLES.SUB_FRANCHISEE, ROLES.ADMIN],
   },
   {
     label: "Leads",
     link: "/leads/create",
-    icon: BsShopWindow,
+    icon: SiGoogleads,
     roles: [ROLES.SUB_FRANCHISEE],
   },
   {
     label: "Leads",
     link: "/leads/edit",
-    icon: BsShopWindow,
+    icon: SiGoogleads,
     roles: [ROLES.SUB_FRANCHISEE],
   },
 ];

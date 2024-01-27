@@ -85,4 +85,7 @@ export const endpoints = {
   rewards: {
     getAll: "/rewards",
   },
+  leads: {
+    getAll: "/leads",
+  },
 };

@@ -7,6 +7,8 @@ import Spinner from "../../components/Spinner";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
 
 const fetchFranchisees = () => {
   return http().get(endpoints.franchisee.getAll);
@@ -17,6 +19,17 @@ export default function MasterFranchisee() {
     queryKey: ["franchisee"],
     queryFn: fetchFranchisees,
   });
+
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 5 });
 
   if (isLoading)
     return (
@@ -40,7 +53,7 @@ export default function MasterFranchisee() {
             <p>Add New Franchisee</p>
           </div>
         </Link>
-        {data.map((item) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((item) => (
           <MasterFranchiseeCard
             key={item.id}
             title={item.franchisee_name}
@@ -50,6 +63,17 @@ export default function MasterFranchisee() {
           />
         ))}
       </div>
+
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 }

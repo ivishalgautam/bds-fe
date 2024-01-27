@@ -1,6 +1,8 @@
 import ShopCard from "@/components/Cards/ShopCard";
 import Spinner from "@/components/Spinner";
 import Title from "@/components/Title";
+import Pagination from "@/components/ui/table/Pagination";
+import usePagination from "@/hooks/usePagination";
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 import useLocalStorage from "@/utils/useLocalStorage";
@@ -19,6 +21,17 @@ export default function Shop() {
     queryKey: ["shop"],
     queryFn: fetchShops,
   });
+
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 8 });
 
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const [token] = useLocalStorage("token");
@@ -57,7 +70,7 @@ export default function Shop() {
     <div className="space-y-6">
       <Title text="Shop" />
       <div className="grid grid-cols-3 gap-4">
-        {data.map((item) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((item) => (
           <ShopCard
             key={item.id}
             id={item.id}
@@ -69,6 +82,17 @@ export default function Shop() {
           />
         ))}
       </div>
+
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 }

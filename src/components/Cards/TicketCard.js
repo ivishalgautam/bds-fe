@@ -5,12 +5,7 @@ import Image from "next/image";
 import Avatar from "../../assets/avatar.svg";
 import { FiMoreVertical } from "react-icons/fi";
 import { MdModeEditOutline } from "react-icons/md";
-import { BsFillEyeFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import http from "@/utils/http";
-import { endpoints } from "@/utils/endpoints";
-import { toast } from "react-hot-toast";
 
 function TicketCard({
   description,
@@ -26,28 +21,9 @@ function TicketCard({
   answer,
   openCreateModal,
   setType,
+  handleDelete,
 }) {
   const [show, setShow] = useState(false);
-
-  const queryClient = useQueryClient();
-
-  const deleteItem = async (itemId) => {
-    await http().delete(`${endpoints.ticket.getAll}/${itemId}`);
-  };
-
-  const deleteMutation = useMutation(deleteItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["ticket"] });
-      toast.success("Ticket deleted");
-    },
-    onError: () => {
-      toast.error("Failed to delete Ticket");
-    },
-  });
-
-  const handleDelete = (itemId) => {
-    deleteMutation.mutate(itemId);
-  };
 
   return (
     <div

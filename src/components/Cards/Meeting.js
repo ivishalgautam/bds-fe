@@ -1,3 +1,4 @@
+import { truncate } from "@/utils/utils";
 import React, { useState } from "react";
 import { FiExternalLink } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
@@ -7,9 +8,6 @@ export default function MeetingCard({ meeting, handleDelete }) {
     value: "",
     copied: false,
   });
-  function trim(str, length) {
-    return str.length > length ? `${str.substring(0, length)}...` : str;
-  }
 
   return (
     <div className="bg-white rounded-lg p-4">
@@ -22,7 +20,7 @@ export default function MeetingCard({ meeting, handleDelete }) {
         </button>
       </div>
       <div className="flex items-center justify-start gap-2">
-        <span>Start Url: {trim(meeting.start_url, 20)}</span>
+        <span>Start Url: {truncate(meeting.start_url, 20)}</span>
         <a href={meeting.start_url} className="text-sm " target="_blank">
           <FiExternalLink className="text-primary" size={20} />
         </a>

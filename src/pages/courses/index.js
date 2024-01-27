@@ -12,6 +12,9 @@ import { MainContext } from "@/store/context";
 import axios from "axios";
 import useLocalStorage from "@/utils/useLocalStorage";
 import toast from "react-hot-toast";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
+import { isObject } from "@/utils/object";
 
 const fetchCourses = () => {
   return http().get(endpoints.courses.getAll);
@@ -35,14 +38,21 @@ export default function Courses() {
     queryFn: fetchCourses,
   });
 
-  // console.log({ data });
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 8 });
 
   const { data: unAssignedCourses } = useQuery({
     queryKey: ["unassigned-courses"],
     queryFn: fetchUnassignedCourses,
   });
-
-  console.log({ unAssignedCourses });
 
   const submitQueryMutation = useMutation(submitQuery, {
     onSuccess: () => {
@@ -67,6 +77,19 @@ export default function Courses() {
     }
   }
 
+  const handleDelete = async (itemId) => {
+    try {
+      const resp = await http().delete(`${endpoints.courses.getAll}/${itemId}`);
+      setResultsToShow((prev) => prev.filter((item) => item.id !== itemId));
+    } catch (error) {
+      if (isObject(error)) {
+        toast.error(error.message);
+      } else {
+        toast.error("error deleting student");
+      }
+    }
+  };
+
   if (isLoading)
     return (
       <div className="flex justify-center">
@@ -79,7 +102,7 @@ export default function Courses() {
     <div className="space-y-6">
       <Title text="All purchased Courses" />
 
-      <div className="grid grid-cols-4 gap-8">
+      <div className="grid grid-cols-4 gap-8 pb-24">
         {user?.role === "admin" && (
           <Link
             href="/courses/create"
@@ -92,43 +115,57 @@ export default function Courses() {
           </Link>
         )}
 
-        {data?.length > 0 ? (
-          data?.map((item) => (
-            <React.Fragment key={item.id}>
-              {user?.role === "admin" ? (
-                <Course
-                  id={item.id}
-                  title={item.course_name}
-                  description={item.course_description}
-                  thumbnail={item.course_thumbnail}
-                  duration={item.duration}
-                  quiz={item.total_quizs}
-                  projects={item.total_project}
-                  user={user}
-                />
-              ) : (
-                <MFCourse
-                  id={item.id}
-                  title={item.course_name}
-                  description={item.course_description}
-                  thumbnail={item.course_thumbnail}
-                  duration={item.duration}
-                  quiz={item.quiz}
-                  projects={item.projects}
-                />
-              )}
-            </React.Fragment>
-          ))
+        {resultsToShow?.length > 0 ? (
+          resultsToShow
+            ?.slice(startIndex, endIndex)
+            ?.map((item) => (
+              <React.Fragment key={item.id}>
+                {user?.role === "admin" ? (
+                  <Course
+                    id={item.id}
+                    title={item.course_name}
+                    description={item.course_description}
+                    thumbnail={item.course_thumbnail}
+                    duration={item.duration}
+                    quiz={item.total_quizs}
+                    projects={item.total_project}
+                    user={user}
+                    handleDelete={handleDelete}
+                  />
+                ) : (
+                  <MFCourse
+                    id={item.id}
+                    title={item.course_name}
+                    description={item.course_description}
+                    thumbnail={item.course_thumbnail}
+                    duration={item.duration}
+                    quiz={item.quiz}
+                    projects={item.projects}
+                  />
+                )}
+              </React.Fragment>
+            ))
         ) : (
           <p>No course assigned</p>
         )}
       </div>
 
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
+
       {/* more courses */}
       {user?.role !== "admin" && unAssignedCourses?.length > 0 && (
         <>
           <Title text="More Courses" />
-          <div className="grid grid-cols-4 gap-8">
+          <div className="grid grid-cols-4 gap-8 pb-24">
             {unAssignedCourses?.map((item) => (
               <MFCourse
                 key={item.id}

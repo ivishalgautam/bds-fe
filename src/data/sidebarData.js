@@ -426,4 +426,22 @@ export const AllRoutes = [
     icon: BsShopWindow,
     roles: [ROLES.TEACHER],
   },
+  {
+    label: "Leads",
+    link: "/leads",
+    icon: BsShopWindow,
+    roles: [ROLES.SUB_FRANCHISEE, ROLES.ADMIN],
+  },
+  {
+    label: "Leads",
+    link: "/leads/create",
+    icon: BsShopWindow,
+    roles: [ROLES.SUB_FRANCHISEE],
+  },
+  {
+    label: "Leads",
+    link: "/leads/edit",
+    icon: BsShopWindow,
+    roles: [ROLES.SUB_FRANCHISEE],
+  },
 ];

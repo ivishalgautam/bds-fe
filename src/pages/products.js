@@ -12,6 +12,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
 import { BsFillEyeFill } from "react-icons/bs";
 import toast from "react-hot-toast";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
 
 const fetchProducts = () => {
   return http().get(endpoints.products.getAll);
@@ -56,6 +58,17 @@ export default function Products() {
     queryFn: fetchProducts,
   });
 
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 5 });
+
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation(deleteItem, {
@@ -93,6 +106,15 @@ export default function Products() {
         queryClient.invalidateQueries({ queryKey: ["products"] });
         toast.success("Product updated successfully.");
       },
+      onMutate: (data) => {
+        const newData = resultsToShow?.map((item) => {
+          if (item.id === productId) {
+            return { id: productId, ...data };
+          }
+          return item;
+        });
+        setResultsToShow(newData);
+      },
       onError: () => {
         toast.error("Failed to update Product.");
       },
@@ -128,7 +150,7 @@ export default function Products() {
             <p>Add New Product</p>
           </div>
         </div>
-        {data.map((product) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((product) => (
           <div
             className="bg-white rounded-xl"
             onMouseLeave={() => setShow(false)}
@@ -191,6 +213,16 @@ export default function Products() {
           </div>
         ))}
       </div>
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ProductForm
           handleCreate={handleCreate}

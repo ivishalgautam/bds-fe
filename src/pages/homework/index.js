@@ -10,6 +10,8 @@ import Modal from "../../components/Modal";
 import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
 
 const fetchHomeworks = () => {
   return http().get(endpoints.homeworks.getAll);
@@ -41,6 +43,17 @@ export default function Homework() {
     queryKey: ["homeworks"],
     queryFn: fetchHomeworks,
   });
+
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 7 });
 
   const queryClient = useQueryClient();
 
@@ -116,7 +129,7 @@ export default function Homework() {
           </div>
         </Link>
 
-        {data.map((homework, i) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((homework, i) => (
           <HomeWorkCard
             key={i}
             data={homework.homework}
@@ -134,6 +147,17 @@ export default function Homework() {
           />
         ))}
       </div>
+
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 }

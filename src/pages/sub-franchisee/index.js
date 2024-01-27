@@ -10,6 +10,8 @@ import Spinner from "../../components/Spinner";
 import MultiStepForm from "../../components/Forms/MultiStepForm";
 import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
 
 const fetchSubFranchisees = () => {
   return http().get(endpoints.franchisee.subFranchisee);
@@ -21,7 +23,16 @@ export default function SubFranchisee() {
     queryFn: fetchSubFranchisees,
   });
 
-  console.log(data);
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 5 });
 
   if (isLoading)
     return (
@@ -45,7 +56,7 @@ export default function SubFranchisee() {
             <p>Add New Franchisee</p>
           </div>
         </Link>
-        {data.map((item) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((item) => (
           <SubFranchiseeCard
             key={item.id}
             title={item.franchisee_name}
@@ -56,6 +67,17 @@ export default function SubFranchisee() {
           />
         ))}
       </div>
+
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 }

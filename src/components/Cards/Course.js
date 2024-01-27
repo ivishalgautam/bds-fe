@@ -1,14 +1,11 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { BsFillEyeFill } from "react-icons/bs";
 import { FaLightbulb, FaTrashAlt } from "react-icons/fa";
 import { FiMoreVertical } from "react-icons/fi";
 import { MdModeEditOutline } from "react-icons/md";
-import { endpoints } from "../../utils/endpoints";
-import http from "../../utils/http";
 import { useRouter } from "next/router";
-import toast from "react-hot-toast";
+import { truncate } from "@/utils/utils";
 
 export default function Course({
   title,
@@ -19,29 +16,10 @@ export default function Course({
   thumbnail,
   id,
   user,
+  handleDelete,
 }) {
   const [show, setShow] = useState(false);
   const router = useRouter();
-
-  const queryClient = useQueryClient();
-
-  const deleteItem = async (itemId) => {
-    await http().delete(`${endpoints.courses.getAll}/${itemId}`);
-  };
-
-  const deleteMutation = useMutation(deleteItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["courses"] });
-      toast.success("Course deleted.");
-    },
-    onError: () => {
-      toast.error("Failed to delete Course.");
-    },
-  });
-
-  const handleDelete = (itemId) => {
-    deleteMutation.mutate(itemId);
-  };
 
   return (
     <div className="bg-white rounded-xl" onMouseLeave={() => setShow(false)}>
@@ -106,7 +84,7 @@ export default function Course({
             <AiFillQuestionCircle className="text-primary" /> {quiz} Quiz
           </p>
         </div>
-        <p className="text-[#11505D] text-sm">{description}</p>
+        <p className="text-[#11505D] text-sm">{truncate(description, 100)}</p>
       </div>
     </div>
   );

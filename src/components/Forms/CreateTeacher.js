@@ -246,7 +246,7 @@ function CreateTeacher({ type, id, handleUpdate, userRole, handleCreate }) {
               disabled={type === "view"}
               className="w-full px-4 h-[42px] border outline-none rounded-md bg-[#F7F7FC] font-mulish text-xl font-semibold"
               {...register("first_name", {
-                required: "Full Name is required",
+                required: "First Name is required",
               })}
             />
             {errors.first_name && (

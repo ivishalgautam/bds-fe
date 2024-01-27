@@ -8,6 +8,8 @@ import Spinner from "@/components/Spinner";
 import QuizCard from "@/components/Cards/QuizCard";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
 
 const fetchQuiz = () => {
   return http().get(endpoints.quiz.getAll);
@@ -22,6 +24,18 @@ export default function Quiz() {
     queryKey: ["quiz"],
     queryFn: fetchQuiz,
   });
+
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 8 });
+
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation(deleteItem, {
@@ -63,10 +77,21 @@ export default function Quiz() {
           </div>
         </Link>
 
-        {data.map((quiz) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((quiz) => (
           <QuizCard key={quiz.id} quiz={quiz} handleDelete={handleDelete} />
         ))}
       </div>
+
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 }

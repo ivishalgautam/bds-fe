@@ -6,14 +6,11 @@ import { endpoints } from "../utils/endpoints";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useFetchCoursesNames } from "@/hooks/useFetchCoursesName";
 import { AiOutlinePlus } from "react-icons/ai";
-import { FiMoreVertical } from "react-icons/fi";
-import { FaTrashAlt } from "react-icons/fa";
-import { MdModeEditOutline } from "react-icons/md";
-import { BsFillEyeFill } from "react-icons/bs";
 import AssignCourseForm from "@/components/Forms/AssignCourses";
 import Modal from "../components/Modal";
 import toast from "react-hot-toast";
 import { isObject } from "@/utils/object";
+import AssignCourseTable from "@/components/ui/table/AssignCourse";
 
 const fetchAssignCourses = () => {
   return http().get(endpoints.assign_courses);
@@ -35,7 +32,6 @@ export default function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coursesAssignId, setCoursesAssignId] = useState(null);
   const [type, setType] = useState(null);
-  const [show, setShow] = useState(false);
 
   const { data: courses } = useFetchCoursesNames();
 
@@ -44,11 +40,6 @@ export default function Products() {
     queryFn: fetchAssignCourses,
   });
   // console.log({ data });
-  const toggleDropdown = (id) => {
-    setShow((prevState) => ({
-      [id]: !prevState[id],
-    }));
-  };
 
   // Function to open the modal
   const openModal = () => {
@@ -138,98 +129,14 @@ export default function Products() {
         </div>
       </div>
 
-      <div
-        className="relative shadow-md sm:rounded-lg"
-        onMouseLeave={() => setShow(false)}
-      >
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Course Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                User Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Role
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((assign_courses, index) => (
-              <tr
-                className="bg-white dark:border-gray-700"
-                key={`${index}${assign_courses.id}`}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-700 whitespace-nowrap"
-                >
-                  {assign_courses.course_name}
-                </th>
-                <td className="px-6 py-4 text-gray-700">
-                  {assign_courses.username}
-                </td>
-                <td className="px-6 py-4 text-gray-700">
-                  {assign_courses.role}
-                </td>
-                <td className="px-6 py-4 text-gray-700">
-                  {assign_courses.status}
-                </td>
-                <td className="px-6 py-4 text-gray-700">
-                  <div className="relative">
-                    <FiMoreVertical
-                      onClick={() => toggleDropdown(assign_courses.id)}
-                      className="cursor-pointer"
-                    />
-                    {show[assign_courses.id] && (
-                      <div className="absolute top-4 right-0 mt-2 bg-white rounded-lg shadow-md">
-                        <ul className="py-2 max-w-max">
-                          <li
-                            className="px-4 py-2 hover:bg-gray-100 flex gap-4 items-center cursor-pointer"
-                            onClick={() => {
-                              setCoursesAssignId(assign_courses.id);
-                              openModal();
-                              setType("edit");
-                            }}
-                          >
-                            <MdModeEditOutline />
-                            Edit
-                          </li>
-                          <li
-                            className="px-4 py-2 hover:bg-gray-100 flex gap-4 items-center cursor-pointer"
-                            onClick={() => {
-                              setCoursesAssignId(assign_courses.id);
-                              openModal();
-                              setType("view");
-                            }}
-                          >
-                            <BsFillEyeFill />
-                            View
-                          </li>
-                          <li
-                            className="px-4 py-2 hover:bg-gray-100 flex gap-4 items-center cursor-pointer"
-                            onClick={() => handleDelete(assign_courses.id)}
-                          >
-                            <FaTrashAlt />
-                            Delete
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="relative shadow-md sm:rounded-lg">
+        <AssignCourseTable
+          data={data}
+          setType={setType}
+          openModal={openModal}
+          setCoursesAssignId={setCoursesAssignId}
+          handleDelete={handleDelete}
+        />
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <AssignCourseForm

@@ -9,6 +9,8 @@ import ProjectCard from "../../components/Cards/ProjectCard";
 import toast from "react-hot-toast";
 import http from "@/utils/http";
 import Title from "@/components/Title";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
 
 const fetchProject = () => {
   return http().get(endpoints.projects.getAll);
@@ -35,6 +37,18 @@ export default function Project() {
     queryKey: ["project"],
     queryFn: fetchProject,
   });
+
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 8 });
+
   const queryClient = useQueryClient();
 
   // Function to open the modal
@@ -117,7 +131,7 @@ export default function Project() {
             <p>Add New Project</p>
           </div>
         </div>
-        {data.map((project) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((project) => (
           <ProjectCard
             key={project.id}
             project={project}
@@ -128,6 +142,18 @@ export default function Project() {
           />
         ))}
       </div>
+
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
+
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <CreateProject
           handleCreate={handleCreate}

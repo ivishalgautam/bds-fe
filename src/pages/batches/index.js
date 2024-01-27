@@ -3,12 +3,15 @@ import CreateBatch from "@/components/Forms/CreateBatch";
 import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import Title from "@/components/Title";
+import Pagination from "@/components/ui/table/Pagination";
 import { useFetchCoursesNames } from "@/hooks/useFetchCoursesName";
 import { useFetchStudents } from "@/hooks/useFetchStudents";
 import { useFetchTeachers } from "@/hooks/useFetchTeachers";
+import usePagination from "@/hooks/usePagination";
 import { MainContext } from "@/store/context";
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
+import { isObject } from "@/utils/object";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
@@ -26,10 +29,6 @@ const updateItem = async (itemId, updatedItem) => {
   await http().put(`${endpoints.batch.getAll}/${itemId}`, updatedItem);
 };
 
-const deleteItem = async (itemId) => {
-  await http().delete(`${endpoints.batch.getAll}/${itemId}`);
-};
-
 function Batches() {
   const { user } = useContext(MainContext);
   const [selectedBatch, setSelectedBatch] = useState(null);
@@ -38,6 +37,17 @@ function Batches() {
     queryKey: ["batches"],
     queryFn: fetchBatches,
   });
+
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 5 });
 
   // console.log({ data });
 
@@ -89,18 +99,17 @@ function Batches() {
     updateMutation.mutate(updatedItem);
   };
 
-  const deleteMutation = useMutation(deleteItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["batches"] });
-      toast.success("Batch deleted.");
-    },
-    onError: () => {
-      toast.error("Failed to delete.");
-    },
-  });
-
-  const handleDelete = (itemId) => {
-    deleteMutation.mutate(itemId);
+  const handleDelete = async (itemId) => {
+    try {
+      const resp = await http().delete(`${endpoints.batch.getAll}/${itemId}`);
+      setResultsToShow((prev) => prev.filter((item) => item.id !== itemId));
+    } catch (error) {
+      if (isObject(error)) {
+        toast.error(error.message);
+      } else {
+        toast.error("error deleting student");
+      }
+    }
   };
 
   if (isLoading)
@@ -141,7 +150,7 @@ function Batches() {
           </div>
         </div>
 
-        {data.map((batch) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((batch) => (
           <BatchCard
             key={batch.id}
             openModal={openModal}
@@ -153,6 +162,17 @@ function Batches() {
           />
         ))}
       </div>
+
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <CreateBatch
           students={formatedStudents}

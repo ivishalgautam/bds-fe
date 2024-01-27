@@ -1,7 +1,5 @@
 import { useState } from "react";
 import TeacherCard from "@/components/Cards/TeacherCard";
-import CreateTeacher from "@/components/Forms/CreateTeacher";
-import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import Title from "@/components/Title";
 import { endpoints } from "@/utils/endpoints";
@@ -10,6 +8,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AiOutlinePlus } from "react-icons/ai";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
 
 const fetchTeachers = () => {
   return http().get(endpoints.teachers.getAll);
@@ -17,14 +17,6 @@ const fetchTeachers = () => {
 
 const createTeacher = async (newItem) => {
   await http().post(endpoints.createUser, newItem);
-};
-
-const updateItem = async (itemId, updatedItem) => {
-  await http().put(`${endpoints.createUser}/${itemId}`, updatedItem);
-};
-
-const deleteItem = async (itemId) => {
-  await http().delete(`${endpoints.createUser}/${itemId}`);
 };
 
 function Teachers() {
@@ -44,7 +36,16 @@ function Teachers() {
     queryFn: fetchTeachers,
   });
 
-  console.log({ data });
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 1 });
 
   const queryClient = useQueryClient();
 
@@ -58,39 +59,19 @@ function Teachers() {
     },
   });
 
-  const handleCreate = (newItem) => {
-    createMutation.mutate(newItem);
-  };
-
-  const updateMutation = useMutation(
-    (updatedItem) => updateItem(selectedTeacher, updatedItem),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["teachers"] });
-        toast.success("Teacher updated successfully.");
-      },
-      onError: () => {
-        toast.error("Failed to update Teacher.");
-      },
+  const handleDelete = async (itemId) => {
+    try {
+      const resp = await http().delete(`${endpoints.createUser}/${itemId}`);
+      setResultsToShow((prev) =>
+        prev.filter((item) => item.user_id !== itemId)
+      );
+    } catch (error) {
+      if (isObject(error)) {
+        toast.error(error.message);
+      } else {
+        toast.error("error deleting student");
+      }
     }
-  );
-
-  const handleUpdate = (updatedItem) => {
-    updateMutation.mutate(updatedItem);
-  };
-
-  const deleteMutation = useMutation(deleteItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["teachers"] });
-      toast.success("Teacher deleted.");
-    },
-    onError: () => {
-      toast.error("Failed to delete Teacher.");
-    },
-  });
-
-  const handleDelete = (itemId) => {
-    deleteMutation.mutate(itemId);
   };
 
   if (isLoading)
@@ -119,46 +100,60 @@ function Teachers() {
         </div>
       </Link>
       <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8">
-        {data.map(
-          ({
-            id,
-            username,
-            first_name,
-            last_name,
-            image_url,
-            batches,
-            user_id,
-            profession,
-            course_name,
-            role,
-            course_id,
-            teacher_courses,
-            teacher_total_batches,
-          }) => (
-            <TeacherCard
-              key={id}
-              id={user_id}
-              username={username}
-              first_name={first_name}
-              last_name={last_name}
-              image_url={process.env.NEXT_PUBLIC_IMAGE_DOMAIN + "/" + image_url}
-              batches={batches}
-              openModal={openModal}
-              setSelectedTeacher={setSelectedTeacher}
-              setType={setType}
-              handleDelete={handleDelete}
-              profession={profession}
-              course_name={course_name}
-              userRole="teachers"
-              type="sub_franchisee"
-              role={role}
-              courseId={course_id}
-              teacher_courses={teacher_courses}
-              teacher_total_batches={teacher_total_batches}
-            />
-          )
-        )}
+        {resultsToShow
+          ?.slice(startIndex, endIndex)
+          ?.map(
+            ({
+              id,
+              username,
+              first_name,
+              last_name,
+              image_url,
+              batches,
+              user_id,
+              profession,
+              course_name,
+              role,
+              course_id,
+              teacher_courses,
+              teacher_total_batches,
+            }) => (
+              <TeacherCard
+                key={id}
+                id={user_id}
+                username={username}
+                first_name={first_name}
+                last_name={last_name}
+                image_url={
+                  process.env.NEXT_PUBLIC_IMAGE_DOMAIN + "/" + image_url
+                }
+                batches={batches}
+                openModal={openModal}
+                setSelectedTeacher={setSelectedTeacher}
+                setType={setType}
+                handleDelete={handleDelete}
+                profession={profession}
+                course_name={course_name}
+                userRole="teachers"
+                type="sub_franchisee"
+                role={role}
+                courseId={course_id}
+                teacher_courses={teacher_courses}
+                teacher_total_batches={teacher_total_batches}
+              />
+            )
+          )}
       </div>
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
       {/* <Modal isOpen={isOpen} onClose={closeModal}>
         <CreateTeacher
           handleCreate={handleCreate}

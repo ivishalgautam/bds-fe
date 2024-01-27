@@ -2,6 +2,7 @@ import React from "react";
 import CourseImg from "../../assets/course.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { truncate } from "@/utils/utils";
 
 export default function MFCourse({
   title,
@@ -28,7 +29,7 @@ export default function MFCourse({
           <p className="">{title}</p>
           <p className="text-xs text-[#252832]">Duration: {duration} Weeks</p>
         </div>
-        <p className="text-[#11505D] text-sm">{description}</p>
+        <p className="text-[#11505D] text-sm">{truncate(description, 70)}</p>
         {type === "unassigned" ? (
           !is_queried ? (
             <button

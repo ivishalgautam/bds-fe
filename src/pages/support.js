@@ -11,6 +11,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 import CreateTicketForm from "@/components/CreateTicketForm";
 import { MainContext } from "@/store/context";
 import toast from "react-hot-toast";
+import usePagination from "@/hooks/usePagination";
+import Pagination from "@/components/ui/table/Pagination";
+import { isObject } from "@/utils/object";
 
 const fetchTickets = () => {
   return http().get(endpoints.ticket.getAll);
@@ -36,6 +39,17 @@ export default function Support() {
   });
 
   const queryClient = useQueryClient();
+
+  const {
+    params,
+    pathname,
+    router,
+    totalPages,
+    resultsToShow,
+    setResultsToShow,
+    startIndex,
+    endIndex,
+  } = usePagination({ data: data, perPage: 5 });
 
   // Function to open the modal
   const openModal = () => {
@@ -85,6 +99,19 @@ export default function Support() {
     updateTicketMutation.mutate(updatedItem);
   };
 
+  const handleDelete = async (itemId) => {
+    try {
+      const resp = await http().delete(`${endpoints.ticket.getAll}/${itemId}`);
+      setResultsToShow((prev) => prev.filter((item) => item.id !== itemId));
+    } catch (error) {
+      if (isObject(error)) {
+        toast.error(error.message);
+      } else {
+        toast.error("error deleting student");
+      }
+    }
+  };
+
   if (isLoading)
     return (
       <div className="flex justify-center">
@@ -98,7 +125,7 @@ export default function Support() {
     <div className="space-y-6">
       <Title text="Support" />
 
-      <div className="grid grid-cols-2 gap-x-6 gap-y-12">
+      <div className="grid grid-cols-2 gap-x-6 gap-y-12 pb-24">
         {user?.role !== "admin" && (
           <div
             className="p-8 bg-white rounded-xl cursor-pointer flex flex-col items-center justify-center space-y-4 "
@@ -111,7 +138,7 @@ export default function Support() {
             <p>Raise Ticket</p>
           </div>
         )}
-        {data.map((ticket) => (
+        {resultsToShow?.slice(startIndex, endIndex)?.map((ticket) => (
           <TicketCard
             key={ticket.id}
             id={ticket.id}
@@ -131,9 +158,22 @@ export default function Support() {
             user={user}
             answer={ticket.answer}
             setType={setType}
+            handleDelete={handleDelete}
           />
         ))}
       </div>
+
+      {totalPages > 0 && (
+        <Pagination
+          params={params}
+          router={router}
+          pathname={pathname}
+          resultsToShow={resultsToShow}
+          endIndex={endIndex}
+          totalPages={totalPages}
+        />
+      )}
+
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <TicketForm
           handleUpdate={handleUpdate}

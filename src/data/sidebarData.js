@@ -14,8 +14,8 @@ import {
   FaRobot,
   FaShoppingCart,
   FaUserCheck,
-  FaUsersLine,
 } from "react-icons/fa";
+import { FaUsersLine } from "react-icons/fa6";
 import { BsFillQuestionSquareFill, BsShopWindow } from "react-icons/bs";
 import { SiGoogleads, SiLevelsdotfyi } from "react-icons/si";
 import { RiComputerFill, RiPresentationFill } from "react-icons/ri";

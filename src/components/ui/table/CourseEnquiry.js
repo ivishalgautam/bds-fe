@@ -40,7 +40,7 @@ export default function CourseEnquiryTable({
     },
     {
       name: "Enquiry by (phone)",
-      selector: (row) => capitalize(row.mobile_number),
+      selector: (row) => row.mobile_number,
     },
     {
       name: "Enquiry date",

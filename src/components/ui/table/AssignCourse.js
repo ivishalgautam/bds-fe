@@ -99,7 +99,7 @@ export default function AssignCourseTable({
         </div>
       </div>
       <div className="rounded-lg overflow-hidden">
-        <Table data={data} columns={columns} />;
+        <Table data={data} columns={columns} />
       </div>
     </>
   );

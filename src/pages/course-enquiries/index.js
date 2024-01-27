@@ -3,7 +3,6 @@ import CourseEnquiryTable from "@/components/ui/table/CourseEnquiry";
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 import { useQuery } from "@tanstack/react-query";
-import moment from "moment";
 import React from "react";
 
 async function fetchCourseEnquiries() {

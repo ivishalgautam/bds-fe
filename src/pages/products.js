@@ -137,7 +137,7 @@ export default function Products() {
   return (
     <div className="space-y-6">
       <Title text="Products" />
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-3 gap-8 pb-24">
         <div
           className="bg-white p-4 rounded-xl space-y-4 flex justify-center items-center cursor-pointer"
           onClick={() => {

@@ -13,8 +13,6 @@ export default function ProductEnquiryTable({
     setData(productEnquiryData);
   }, []);
 
-  console.log({ data });
-
   function handleSearch(e) {
     const inputValue = e.target.value.toLowerCase();
     const filtered = productEnquiryData?.filter(
